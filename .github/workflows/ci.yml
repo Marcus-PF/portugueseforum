@@ -1,5 +1,8 @@
 name: CI
 
+env:
+  NX_CLOUD_ACCESS_TOKEN: MzZiZTVjNTctYjExOC00Yzk0LWJlMWItODM4MDliY2FkOWI1fHJlYWQtd3JpdGU=
+
 on:
   push:
     branches:
