@@ -1,0 +1,66 @@
+{
+  "Home": {
+    "title": "Welcome to The Portuguese Forum",
+    "description": "Connecting the South African Portuguese community."
+  },
+  "About": {
+    "title": "About Us",
+    "description": "The Portuguese Forum is dedicated to fostering community and culture in South Africa."
+  },
+  "News": {
+    "title": "News",
+    "noArticles": "No articles found."
+  },
+  "Community": {
+    "title": "Community Spotlight",
+    "description": "Highlighting events and achievements in our community."
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send"
+  },
+  "PrivacyPolicy": {
+    "title": "Privacy Policy",
+    "description": "Our commitment to your privacy."
+  },
+  "Admin": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "welcome": "Welcome, {name}",
+      "manageArticles": "Manage Articles"
+    },
+    "articles": {
+      "title": "Manage Articles",
+      "create": "Create Article",
+      "edit": "Edit",
+      "createTitle": "Create Article",
+      "editTitle": "Edit Article",
+      "titleLabel": "Title",
+      "contentLabel": "Content",
+      "save": "Save",
+      "update": "Update",
+      "noArticles": "No articles found.",
+      "unauthorized": "Unauthorized. Please log in."
+    }
+  },
+  "Header": {
+    "home": "Home",
+    "about": "About",
+    "news": "News",
+    "community": "Community",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "Footer": {
+    "copyright": "© {year} The Portuguese Forum. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "contact": "Contact Us"
+  },
+  "LanguageSwitcher": {
+    "en": "English",
+    "pt": "Portuguese"
+  }
+}

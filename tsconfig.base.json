@@ -11,8 +11,9 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@pfsa/data": ["libs/data/src"],
       "@pfsa/ui": ["libs/ui/src"],
-      "@pfsa/data": ["libs/data/src"]
-    },
+      "@pfsa/ui/global": ["libs/ui/src/styles/globals.css"]
+    }
   }
 }

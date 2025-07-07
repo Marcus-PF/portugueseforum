@@ -1,0 +1,66 @@
+{
+  "Home": {
+    "title": "Bem-vindo ao Fórum Português",
+    "description": "Conectando a comunidade portuguesa na África do Sul."
+  },
+  "About": {
+    "title": "Sobre Nós",
+    "description": "O Fórum Português é dedicado a promover a comunidade e a cultura na África do Sul."
+  },
+  "News": {
+    "title": "Notícias",
+    "noArticles": "Nenhum artigo encontrado."
+  },
+  "Community": {
+    "title": "Destaque da Comunidade",
+    "description": "Destacando eventos e conquistas da nossa comunidade."
+  },
+  "Contact": {
+    "title": "Contacte-nos",
+    "name": "Nome",
+    "email": "E-mail",
+    "message": "Mensagem",
+    "submit": "Enviar"
+  },
+  "PrivacyPolicy": {
+    "title": "Política de Privacidade",
+    "description": "Nosso compromisso com sua privacidade."
+  },
+  "Admin": {
+    "dashboard": {
+      "title": "Painel de Administração",
+      "welcome": "Bem-vindo, {name}",
+      "manageArticles": "Gerenciar Artigos"
+    },
+    "articles": {
+      "title": "Gerenciar Artigos",
+      "create": "Criar Artigo",
+      "edit": "Editar",
+      "createTitle": "Criar Artigo",
+      "editTitle": "Editar Artigo",
+      "titleLabel": "Título",
+      "contentLabel": "Conteúdo",
+      "save": "Salvar",
+      "update": "Atualizar",
+      "noArticles": "Nenhum artigo encontrado.",
+      "unauthorized": "Não autorizado. Por favor, faça login."
+    }
+  },
+  "Header": {
+    "home": "Início",
+    "about": "Sobre",
+    "news": "Notícias",
+    "community": "Comunidade",
+    "contact": "Contacto",
+    "admin": "Admin"
+  },
+  "Footer": {
+    "copyright": "© {year} Fórum Português. Todos os direitos reservados.",
+    "privacyPolicy": "Política de Privacidade",
+    "contact": "Contacte-nos"
+  },
+  "LanguageSwitcher": {
+    "en": "Inglês",
+    "pt": "Português"
+  }
+}
