@@ -1,1 +1,1 @@
-export * from './lib/ui.js';
+export * from './atoms/accordion';
