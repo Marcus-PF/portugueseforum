@@ -1,8 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]';
 import { useTranslations } from 'next-intl';
-import { Card } from '../../../../components/ui/card';
-import { Button } from '../../../../components/ui/button';
+import { Card, Button } from '@pfsa/ui';
 import { fetchArticles } from '@pfsa/data';
 import Link from 'next/link';
 

@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/forum/src",
   "projectType": "application",
-  "tags": [],
+  "tags": ["nextjs", "frontend", "localized"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
@@ -25,7 +25,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "forum:build",
-        "dev": true
+        "dev": true,
+        "port": 3000
       },
       "configurations": {
         "development": {

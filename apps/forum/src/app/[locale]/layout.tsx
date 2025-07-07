@@ -2,8 +2,7 @@ import '@pfsa/ui/global';
 
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
-import { Header } from '../../components/Header';
-import { Footer } from '../../components/Footer';
+import { Header } from '../../components/navigation/Header';
 
 export default async function RootLayout({
   children,
@@ -25,7 +24,6 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <main className="flex-grow">{children}</main>
-          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

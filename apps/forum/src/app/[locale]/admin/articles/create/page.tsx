@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../api/auth/[...nextauth]';
 import { useTranslations } from 'next-intl';
-import { Button } from '../../../../../components/ui/button';
+import { Button } from '@pfsa/ui';
 import Link from 'next/link';
 
 export default async function CreateArticle({ params }: { params: { locale: string } }) {

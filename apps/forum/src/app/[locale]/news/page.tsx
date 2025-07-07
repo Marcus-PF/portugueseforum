@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Card } from '../../../components/ui/card';
+import { Card } from '@pfsa/ui';
 import { fetchArticles } from '@pfsa/data';
 import Link from 'next/link';
 

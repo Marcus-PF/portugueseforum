@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@pfsa/ui';
 
 export default function Contact() {
   const t = useTranslations('Contact');
