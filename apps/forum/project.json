@@ -1,0 +1,56 @@
+{
+  "name": "forum",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/forum/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/forum",
+        "outputPath": "dist/apps/forum"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/forum"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "forum:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "forum:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "forum:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "forum:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/forum/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  }
+}
