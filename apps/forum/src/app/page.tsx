@@ -1,29 +1,21 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃     @pfsa/forum – Next.js Configuration (App Dir)     ┃
+ * ┃     @pfsa/forum – Root Redirect to Default Locale     ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * This configuration sets up Next.js 15 for Portuguese Forum,
- * with Nx support and localization via `next-intl`.
+ * Redirects from `/` to the default locale route (`/en`)
+ * using Next.js App Router's built-in `redirect()` helper.
  */
 
-import { withNx } from '@nx/next';
-import createNextIntlPlugin from 'next-intl/plugin';
+'use client';
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Plugin Configuration (next-intl)
+ * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-const withNextIntl = createNextIntlPlugin('./src/app/i18n/request.ts');
+import { redirect } from 'next/navigation';
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Base Next.js Configuration
+ * 🧾 Redirect Logic
  * ───────────────────────────────────────────────────────────── */
-const nextConfig = {
-  nx: {
-    svgr: false, // We use static SVG imports instead of SVGR
-  },
-};
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export
- * ───────────────────────────────────────────────────────────── */
-export default withNx(withNextIntl(nextConfig));
+export default function RootPage() {
+  redirect('/en'); // You may also dynamically resolve the defaultLocale if needed
+}

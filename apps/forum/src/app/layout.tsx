@@ -1,34 +1,42 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃      @pfsa/forum – next-intl Routing Middleware       ┃
+ * ┃          Locale Layout – Global App Shell (+ i18n)    ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Rewrites incoming requests so `/`, `/en/*`, `/pt/*`, etc.
- * are correctly handled by Next App Router + `next-intl`.
- *
- * Exports:
- *  - default → Middleware handler created by next-intl
- *  - `config`→ Route matcher configuration
+ * Provides Header / Footer and wires Next-Intl’s
+ * `<NextIntlClientProvider>` for all child routes.
  */
+
+import '@pfsa/ui/global';
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import createMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from '../../i18n';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+
+/* Local shared layout pieces */
+import { Header } from '../components/navigation/Header';
+import { Footer } from '../components/navigation/Footer';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 Middleware
+ * 🧾 Layout Component
  * ───────────────────────────────────────────────────────────── */
-export default createMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'always',
-});
-
-/* ─────────────────────────────────────────────────────────────
- * 🔧 Route Matcher Config
- * ───────────────────────────────────────────────────────────── */
-export const config = {
-  // Ignore Next.js internals & static assets
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
+type RootLayoutProps = {
+  children: React.ReactNode;
+  params: { locale: string };
 };
+
+export default function RootLayout({ children, params }: RootLayoutProps) {
+  const messages = useMessages();
+
+  return (
+    <html lang={params.locale}>
+      <body className="flex min-h-screen flex-col">
+        <NextIntlClientProvider locale={params.locale} messages={messages}>
+          <Header />
+          <main className="flex-grow">{children}</main>
+        </NextIntlClientProvider>
+        <Footer />
+      </body>
+    </html>
+  );
+}
