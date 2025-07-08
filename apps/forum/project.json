@@ -3,55 +3,34 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/forum/src",
   "projectType": "application",
-  "tags": ["nextjs", "frontend", "localized"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
-        "root": "apps/forum",
         "outputPath": "dist/apps/forum"
-      },
-      "configurations": {
-        "development": {
-          "outputPath": "apps/forum"
-        },
-        "production": {}
       }
     },
-    "serve": {
-      "executor": "@nx/next:server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "forum:build",
-        "dev": true,
-        "port": 3000
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "forum:build:development",
-          "dev": true
-        },
-        "production": {
-          "buildTarget": "forum:build:production",
-          "dev": false
-        }
-      }
+    "dev": {
+      "executor": "@nx/next:dev",
+      "options": {}
     },
-    "export": {
-      "executor": "@nx/next:export",
-      "options": {
-        "buildTarget": "forum:build:production"
-      }
+    "start": {
+      "executor": "@nx/next:start",
+      "options": {}
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "apps/forum/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["apps/forum/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "typecheck": {
+      "executor": "@nx/js:typecheck",
+      "options": {
+        "tsConfig": "apps/forum/tsconfig.json"
       }
     }
-  }
+  },
+  "tags": ["frontend"]
 }

@@ -5,8 +5,18 @@ import { Button } from '@pfsa/ui';
 import { fetchArticles } from '@pfsa/data';
 import Link from 'next/link';
 
+// Import or define the Article type
+import type { Article as BaseArticle } from '@pfsa/data';
+
+type Article = BaseArticle & {
+  title_en?: string;
+  content_en?: string;
+  title_pt?: string;
+  content_pt?: string;
+};
+
 export async function getServerSideProps({ params }: { params: { id: string; locale: string } }) {
-  const articles = await fetchArticles(params.locale);
+  const articles = await fetchArticles();
   const article = articles.find((a) => a._id === params.id);
   return { props: { article: article || null } };
 }

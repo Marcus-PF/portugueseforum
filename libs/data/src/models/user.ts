@@ -1,20 +1,43 @@
 import { Schema, model, models } from 'mongoose';
 
-export interface User {
-  _id: string;
-  email: string;
-  password: string;
-  name?: string;
-  role: 'user' | 'admin';
-  createdAt: Date;
-}
-
-const userSchema = new Schema<User>({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  name: { type: String },
-  role: { type: String, enum: ['user', 'admin'], default: 'user' },
-  createdAt: { type: Date, default: Date.now },
+export const UserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: [/.+@.+\..+/, 'Please provide a valid email address'],
+  },
+  password: {
+    type: String,
+    required: function (this: { googleId?: string }) {
+      return !this.googleId;
+    },
+  },
+  name: {
+    type: String,
+    required: false,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
+  googleId: {
+    type: String,
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  resetToken: {
+    type: String,
+    required: false,
+  },
+  resetTokenExpires: {
+    type: Date,
+    required: false,
+  },
 });
 
-export const UserModel = models.User || model<User>('User', userSchema);
+export const User = models['User'] || model('User', UserSchema, 'users');

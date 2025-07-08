@@ -62,5 +62,22 @@
   "LanguageSwitcher": {
     "en": "English",
     "pt": "Portuguese"
+  },
+    "auth": {
+    "signIn": "Sign In",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "signInWithGoogle": "Sign in with Google",
+    "invalidCredentials": "Invalid email or password",
+    "registrationFailed": "Registration failed",
+    "resetPassword": "Reset Password",
+    "sendResetLink": "Send Reset Link",
+    "resetPasswordEmailSent": "Password reset email sent",
+    "resetPasswordFailed": "Failed to send reset email",
+    "newPassword": "New Password",
+    "invalidToken": "Invalid or missing reset token",
+    "passwordResetSuccess": "Password reset successfully"
   }
 }

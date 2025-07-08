@@ -1,5 +1,9 @@
-# Add files here to ignore them from prettier formatting
 /dist
 /coverage
 /.nx/cache
 /.nx/workspace-data
+/.next
+/out
+/node_modules
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

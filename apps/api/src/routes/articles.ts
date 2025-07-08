@@ -1,35 +1,54 @@
 import { Hono } from 'hono';
-import { MongoClient } from 'mongodb';
-import { Article } from '@pfsa/data';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
+import mongoose from 'mongoose';
+import { ArticleModel } from '@pfsa/data';
 
 const articles = new Hono();
 
-articles.get('/', async (c) => {
-  const locale = c.req.query('locale') || 'en';
-  const client = new MongoClient(c.env.MONGODB_URI);
-  await client.connect();
-  const db = client.db('portuguese_forum');
-  const data: Article[] = await db.collection<Article>('articles').find().toArray();
-  await client.close();
-  return c.json(data.map((article) => ({
-    ...article,
-    title: article[`title_${locale}`],
-    content: article[`content_${locale}`],
-  })));
+const createArticleSchema = z.object({
+  title: z.string().min(1),
+  content: z.string().min(1),
+  authorId: z.string(),
+  tags: z.array(z.string()).optional(),
 });
 
-articles.post('/', async (c) => {
-  const article = await c.req.json<Article>();
-  const client = new MongoClient(c.env.MONGODB_URI);
-  await client.connect();
-  const db = client.db('portuguese_forum');
-  const result = await db.collection<Article>('articles').insertOne({
-    ...article,
-    _id: new ObjectId().toString(),
-    slug: article.title_en.toLowerCase().replace(/\s+/g, '-'),
+articles.post('/', zValidator('json', createArticleSchema), async (c) => {
+  const mongoUri = process.env['MONGODB_URI'];
+  if (!mongoUri) {
+    return c.json({ message: 'MONGODB_URI environment variable is not set' }, 500);
+  }
+  await mongoose.connect(mongoUri, { dbName: 'pfsa' });
+
+  const data = c.req.valid('json');
+  const article = new ArticleModel({
+    title: data.title,
+    content: data.content,
+    authorId: new mongoose.Types.ObjectId(data.authorId),
+    slug: data.title.toLowerCase().replace(/\s+/g, '-'),
+    tags: data.tags || [],
+    published: false,
   });
-  await client.close();
-  return c.json({ id: result.insertedId });
+
+  await article.save();
+  return c.json({ message: 'Article created successfully', article }, 201);
+});
+
+articles.get('/:slug', async (c) => {
+  const mongoUri = process.env['MONGODB_URI'];
+  if (!mongoUri) {
+    return c.json({ message: 'MONGODB_URI environment variable is not set' }, 500);
+  }
+
+  await mongoose.connect(mongoUri, { dbName: 'pfsa' });
+
+  const slug = c.req.param('slug');
+  const article = await ArticleModel.findOne({ slug }).lean();
+  if (!article) {
+    return c.json({ message: 'Article not found' }, 404);
+  }
+
+  return c.json(article);
 });
 
 export default articles;

@@ -62,5 +62,22 @@
   "LanguageSwitcher": {
     "en": "Inglês",
     "pt": "Português"
+  },
+  "auth": {
+    "signIn": "Entrar",
+    "register": "Registrar",
+    "email": "E-mail",
+    "password": "Senha",
+    "name": "Nome",
+    "signInWithGoogle": "Entrar com Google",
+    "invalidCredentials": "E-mail ou senha inválidos",
+    "registrationFailed": "Falha no registro",
+    "resetPassword": "Redefinir Senha",
+    "sendResetLink": "Enviar Link de Redefinição",
+    "resetPasswordEmailSent": "E-mail de redefinição de senha enviado",
+    "resetPasswordFailed": "Falha ao enviar e-mail de redefinição",
+    "newPassword": "Nova Senha",
+    "invalidToken": "Token de redefinição inválido ou ausente",
+    "passwordResetSuccess": "Senha redefinida com sucesso"
   }
 }

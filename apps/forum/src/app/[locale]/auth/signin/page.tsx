@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import { SignIn } from '@auth/core/react';
 import { Button, Input, Label } from '@pfsa/ui';
 
 export default async function SignInPage({ params: { locale } }: { params: { locale: string } }) {

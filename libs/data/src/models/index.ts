@@ -1,3 +1,5 @@
 export * from './article'
+export * from './community_post'
+export * from './fetchArticles'
 export * from './page'
 export * from './user'

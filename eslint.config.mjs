@@ -1,9 +1,19 @@
 import nx from '@nx/eslint-plugin';
+import nextPlugin from '@next/eslint-plugin-next';
 
 export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
+  {
+    plugins: {
+      '@next/next': nextPlugin,
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+    },
+  },
   {
     ignores: [
       '**/dist',
@@ -21,8 +31,16 @@ export default [
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {
-              sourceTag: '*',
-              onlyDependOnLibsWithTags: ['*'],
+              sourceTag: 'frontend',
+              onlyDependOnLibsWithTags: ['frontend', 'shared'],
+            },
+            {
+              sourceTag: 'backend',
+              onlyDependOnLibsWithTags: ['backend', 'shared'],
+            },
+            {
+              sourceTag: 'shared',
+              onlyDependOnLibsWithTags: ['shared'],
             },
           ],
         },
@@ -40,7 +58,6 @@ export default [
       '**/*.cjs',
       '**/*.mjs',
     ],
-    // Override or add rules here
     rules: {},
   },
 ];
