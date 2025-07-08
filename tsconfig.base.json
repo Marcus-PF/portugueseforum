@@ -18,7 +18,8 @@
       "@pfsa/utils/frontend": ["libs/data/src/utils/frontend"],
       "@pfsa/utils/shared": ["libs/data/src/utils/shared"],
       "@pfsa/ui": ["libs/ui/src"],
-      "@pfsa/ui/global": ["libs/ui/src/styles/globals.css"]
+      "@pfsa/ui/global": ["libs/ui/src/styles/globals.css"],
+      "@pfsa/i18n": ["apps/forum/src/app/i18n"]
     }
   }
 }
