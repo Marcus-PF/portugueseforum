@@ -4,6 +4,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es2022", "dom"],
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "esModuleInterop": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,

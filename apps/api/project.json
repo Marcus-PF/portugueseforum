@@ -39,5 +39,5 @@
       }
     }
   },
-  "tags": ["scope:api", "type:application", "scope:shared"]
+  "tags": ["backend", "scope:api", "type:application", "scope:shared"]
 }

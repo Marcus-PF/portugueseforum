@@ -1,14 +1,18 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃         @pfsa/ui – Hooks Module Entry Point           ┃
+ * ┃         @pfsa/pages – Export Aggregator (Barrel)       ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Exports all reusable hooks for the UI library.
+ * Centralized re-exports for page service utilities.
+ * Consumers should import from this file to ensure consistent
+ * modular access across the project.
  *
- * 🔁 Re-exports:
- *  - `useIsMobile()` – responsive breakpoint detection
+ * Exports:
+ *  - `fetchPageBySlug(slug)`
+ *  - `createOrUpdatePage(input)`
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Exports
+ * 📦 Export Modules
  * ───────────────────────────────────────────────────────────── */
-export * from './use-mobile';
+export * from './fetchPageBySlug';
+export * from './createOrUpdatePage';

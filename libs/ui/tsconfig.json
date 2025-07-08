@@ -11,7 +11,5 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "vite.config.*"
-  ]
+  "exclude": ["vite.config.*"]
 }

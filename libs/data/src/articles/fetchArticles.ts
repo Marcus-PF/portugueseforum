@@ -1,36 +1,28 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃              @pfsa/api – Hono App Entrypoint          ┃
+ * ┃     @pfsa/articles – Fetch All Articles (Lean Docs)   ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Composes the core Hono app, applies middleware, and
- * mounts feature routes for the Portuguese Forum backend.
+ * Retrieves all articles from the database using Mongoose's
+ * `.lean()` for lightweight, plain JS objects (no Mongoose
+ * document overhead).
  *
  * Exports:
- *  - `app` → Initialized and configured Hono instance
+ *  - `fetchArticles()` → Promise<PlainArticle[]>
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import articles from './routes/articles';
-import { authMiddleware } from './middleware/auth';
+import { ArticleModel } from '../models/article';
+import { connectToDatabase } from '../utils/db';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Definition & Routing
+ * 📄 Fetch Logic
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
-
-// 🔐 Middleware: Protect article routes with auth
-app.use('/articles/*', authMiddleware);
-
-// 📚 Routes: Mount all /articles/* endpoints
-app.route('/articles', articles);
-
-// 🏁 Root health check or intro message
-app.get('/', (c) => c.text('Hono API for The Portuguese Forum'));
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export
- * ───────────────────────────────────────────────────────────── */
-export default app;
+/**
+ * Connects to MongoDB and returns a lean list of all articles.
+ */
+export async function fetchArticles() {
+  await connectToDatabase();
+  return ArticleModel.find().lean(); // Don't annotate return type
+}

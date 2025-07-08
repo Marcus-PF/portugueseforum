@@ -1,13 +1,15 @@
 packages:
-  - libs/*
-  - apps/*
+  - "libs/*"
+  - "apps/*"
+
 onlyBuiltDependencies:
-  - '@swc/core'
-  - '@tailwindcss/oxide'
+  - "@swc/core"
+  - "@tailwindcss/oxide"
   - bcrypt
   - nx
   - unrs-resolver
+
 ignoredBuiltDependencies:
-  - '@parcel/watcher'
+  - "@parcel/watcher"
   - esbuild
   - sharp

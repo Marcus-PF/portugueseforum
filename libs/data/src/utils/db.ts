@@ -1,36 +1,34 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃              @pfsa/api – Hono App Entrypoint          ┃
+ * ┃       @pfsa/utils – Mongoose Database Connector       ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Composes the core Hono app, applies middleware, and
- * mounts feature routes for the Portuguese Forum backend.
- *
- * Exports:
- *  - `app` → Initialized and configured Hono instance
+ * Provides a singleton-safe `connectToDatabase()` utility
+ * for establishing and reusing a MongoDB connection using
+ * Mongoose, configured via environment variables.
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import articles from './routes/articles';
-import { authMiddleware } from './middleware/auth';
+import mongoose from 'mongoose';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Definition & Routing
+ * 🌐 Database Connection
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
+/**
+ * Connects to MongoDB using Mongoose, only once per runtime.
+ *
+ * @returns The active mongoose instance (connected or reused)
+ * @throws  If `MONGODB_URI` is not defined in the environment
+ */
+export async function connectToDatabase(): Promise<typeof mongoose> {
+  // ✅ Reuse existing connection in dev or SSR envs
+  if (mongoose.connection.readyState !== 0) return mongoose;
 
-// 🔐 Middleware: Protect article routes with auth
-app.use('/articles/*', authMiddleware);
+  // 🔒 Require connection string
+  const uri = process.env['MONGODB_URI'];
+  if (!uri) throw new Error('MONGODB_URI environment variable is not set');
 
-// 📚 Routes: Mount all /articles/* endpoints
-app.route('/articles', articles);
-
-// 🏁 Root health check or intro message
-app.get('/', (c) => c.text('Hono API for The Portuguese Forum'));
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export
- * ───────────────────────────────────────────────────────────── */
-export default app;
+  // 🔗 Initiate connection with optional dbName
+  return mongoose.connect(uri, { dbName: 'pfsa' });
+}

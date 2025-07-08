@@ -1,48 +1,75 @@
-import { Schema, model, models, Document, Types } from 'mongoose';
+/**
+ * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ * ┃         @pfsa/models – Article Schema & Model         ┃
+ * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * Defines the Mongoose schema and inferred TypeScript type
+ * for `Article` documents, including timestamps and references.
+ *
+ * Exports:
+ *  - `ArticleModel` → Mongoose model
+ *  - `Article`      → TypeScript type from schema
+ */
 
-// Define interface for Article document
-export interface Article extends Document {
-  _id: string;
-  title: string;
-  content: string;
-  authorId: Types.ObjectId;
-  slug: string;
-  tags: string[];
-  published: boolean;
-  createdAt: Date;
-}
+/* ─────────────────────────────────────────────────────────────
+ * 📦 Dependencies
+ * ───────────────────────────────────────────────────────────── */
+import { Schema, model, models, InferSchemaType } from 'mongoose';
 
-export const ArticleSchema = new Schema<Article>({
-  title: {
-    type: String,
-    required: true,
+/* ─────────────────────────────────────────────────────────────
+ * 🧾 Schema Definition
+ * ───────────────────────────────────────────────────────────── */
+export const ArticleSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    content: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    authorId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    tags: {
+      type: [String],
+      default: [],
+      lowercase: true,
+    },
+    published: {
+      type: Boolean,
+      default: false,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  content: {
-    type: String,
-    required: true,
-  },
-  authorId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  tags: {
-    type: [String],
-    default: [],
-  },
-  published: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  {
+    timestamps: true, // Adds createdAt and updatedAt fields
+  }
+);
 
-export const ArticleModel = models['Article'] || model<Article>('Article', ArticleSchema, 'articles');
+/* ─────────────────────────────────────────────────────────────
+ * 🧠 Type & Model Exports
+ * ───────────────────────────────────────────────────────────── */
+/**
+ * TypeScript type based on ArticleSchema.
+ */
+export type Article = InferSchemaType<typeof ArticleSchema>;
+
+/**
+ * Mongoose model for the `Article` collection.
+ */
+export const ArticleModel =
+  models['Article'] || model<Article>('Article', ArticleSchema);

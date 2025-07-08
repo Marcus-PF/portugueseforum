@@ -1,36 +1,30 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃              @pfsa/api – Hono App Entrypoint          ┃
+ * ┃        @pfsa/pages – Fetch Page by Slug (Lean)        ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Composes the core Hono app, applies middleware, and
- * mounts feature routes for the Portuguese Forum backend.
+ * Retrieves a static page document based on its slug,
+ * returning a lean (plain JS) version of the data.
  *
  * Exports:
- *  - `app` → Initialized and configured Hono instance
+ *  - `fetchPageBySlug(slug)` → Promise<LeanPage | null>
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import articles from './routes/articles';
-import { authMiddleware } from './middleware/auth';
+import { connectToDatabase } from '../utils/db';
+import { PageModel } from '../models/page';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Definition & Routing
+ * 📄 Retrieval Logic
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
-
-// 🔐 Middleware: Protect article routes with auth
-app.use('/articles/*', authMiddleware);
-
-// 📚 Routes: Mount all /articles/* endpoints
-app.route('/articles', articles);
-
-// 🏁 Root health check or intro message
-app.get('/', (c) => c.text('Hono API for The Portuguese Forum'));
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export
- * ───────────────────────────────────────────────────────────── */
-export default app;
+/**
+ * Looks up a page by its unique slug identifier.
+ *
+ * @param slug - Slug to match against
+ * @returns Lean version of the page (no Mongoose instance)
+ */
+export async function fetchPageBySlug(slug: string) {
+  await connectToDatabase();
+  return PageModel.findOne({ slug }).lean();
+}

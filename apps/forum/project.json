@@ -4,7 +4,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/forum",
   "projectType": "application",
-  "tags": ["type:app", "scope:website"],
+  "tags": ["frontend", "type:app", "scope:website"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",

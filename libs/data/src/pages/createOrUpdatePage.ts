@@ -1,60 +1,56 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃         @pfsa/api – Local Development Bootstrapper    ┃
+ * ┃    @pfsa/pages – Create or Update Page by Slug        ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Loads environment variables and launches the Hono API
- * server locally on the configured port (default: 4000).
+ * Upserts a static page (About, Contact, etc.) using a
+ * unique slug as the lookup key.
+ *
+ * - Creates if not found
+ * - Updates existing if found
+ * - Enforces validation via Mongoose
  *
  * Exports:
- *  - None (script file for dev use only)
+ *  - `createOrUpdatePage(input)` → Returns updated Page doc
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { serve } from '@hono/node-server';
-import { config as loadEnv } from 'dotenv';
-import { resolve } from 'path';
+import { connectToDatabase } from '../utils/db';
+import { PageModel, type Page } from '../models/page';
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Load & Validate Environment
+ * 🧾 Input Type
  * ───────────────────────────────────────────────────────────── */
-const envPath = resolve(__dirname, '../.env');
-const result = loadEnv({ path: envPath });
-
-if (result.error) {
-  console.error(`❌ Failed to load .env file at ${envPath}:`, result.error);
-  throw result.error;
-}
-
-console.info(`✅ Loaded .env file from: ${envPath}`);
-console.info(`🔐 JWT_SECRET: ${process.env.JWT_SECRET ? 'Set' : 'Not set'}`);
-
-/* ─────────────────────────────────────────────────────────────
- * 🧾 Boot the Hono Server
- * ───────────────────────────────────────────────────────────── */
-import app from './main';
-
-const port = parseInt(process.env['PORT'] || '4000', 10);
-
 /**
- * 🛠 Optional typing for clarity in dev context.
+ * Slugged page payload for upsert.
  */
-interface ServerInfo {
-  port: number;
-}
+type PageInput = Pick<
+  Page,
+  'slug' | 'title_en' | 'content_en' | 'title_pt' | 'content_pt'
+>;
 
-interface ServeOptions {
-  fetch: typeof app.fetch;
-  port: number;
-}
+/* ─────────────────────────────────────────────────────────────
+ * 🚀 Upsert Logic
+ * ───────────────────────────────────────────────────────────── */
+/**
+ * Creates or updates a page by `slug`.
+ *
+ * @param input - The page content to store
+ * @returns Updated or newly created `Page` document
+ */
+export async function createOrUpdatePage(input: PageInput): Promise<Page> {
+  await connectToDatabase();
 
-serve(
-  {
-    fetch: app.fetch,
-    port,
-  } as ServeOptions,
-  (info: ServerInfo) => {
-    console.log(`🚀 API server running at http://localhost:${info.port}`);
-  }
-);
+  const { slug, ...rest } = input;
+
+  return PageModel.findOneAndUpdate(
+    { slug },
+    { slug, ...rest },
+    {
+      new: true,          // Return the modified doc
+      upsert: true,       // Create if it doesn't exist
+      runValidators: true // Enforce schema rules
+    }
+  );
+}

@@ -1,14 +1,15 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃         @pfsa/ui – Hooks Module Entry Point           ┃
+ * ┃        @pfsa/articles – Export Aggregator (Barrel)     ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Exports all reusable hooks for the UI library.
+ * Centralized re-exports for article-related server logic.
+ * Use this to simplify imports across consuming layers.
  *
- * 🔁 Re-exports:
- *  - `useIsMobile()` – responsive breakpoint detection
+ * Exports:
+ *  - `fetchArticles()` → Fetches all published articles
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Exports
+ * 📦 Export Modules
  * ───────────────────────────────────────────────────────────── */
-export * from './use-mobile';
+export * from './fetchArticles';
