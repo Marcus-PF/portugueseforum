@@ -79,5 +79,16 @@
     "newPassword": "New Password",
     "invalidToken": "Invalid or missing reset token",
     "passwordResetSuccess": "Password reset successfully"
+  },
+    "admin": {
+    "articles": {
+      "title": "Manage Articles",
+      "create": "Create New Article",
+      "edit": "Edit Article: {title}",
+      "published": "Published",
+      "draft": "Draft",
+      "save": "Save Changes",
+      "content": "Content"
+    }
   }
 }

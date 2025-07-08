@@ -1,26 +1,28 @@
+import { api, Article } from '@pfsa/data';
 import { useTranslations } from 'next-intl';
-import { Card } from '@pfsa/ui';
-import { fetchArticles } from '@pfsa/data';
 import Link from 'next/link';
 
-export async function getServerSideProps({ params }: { params: { locale: string } }) {
-  const articles = await fetchArticles(params.locale);
-  return { props: { articles } };
+interface NewsPageProps {
+  params: { locale: string };
 }
 
-export default function News({ articles }: { articles: Article[] }) {
-  const t = useTranslations('News');
+export default async function NewsPage({ params }: NewsPageProps) {
+  const t = useTranslations('news');
+  const articles = await api.get<Article[]>('/articles');
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-      <div className="grid gap-4">
-        {articles.length === 0 && <p>{t('noArticles')}</p>}
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4">{t('title')}</h1>
+      <ul>
         {articles.map((article) => (
-          <Link key={article._id} href={`/news/${article.slug}`}>
-            <Card title={article[`title_${locale}`]} content={article[`content_${locale}`]} />
-          </Link>
+          <li key={article._id} className="mb-4">
+            <Link href={`/${params.locale}/news/${article.slug}`} className="text-blue-500 hover:underline">
+              {article.title}
+            </Link>
+            <p className="text-gray-600">{new Date(article.createdAt).toLocaleDateString()}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

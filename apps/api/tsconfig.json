@@ -2,10 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
     "types": ["node"],
-    "strict": true
+    "noEmit": true
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+  "files": [],
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

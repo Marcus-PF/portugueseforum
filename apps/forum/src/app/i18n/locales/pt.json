@@ -79,5 +79,16 @@
     "newPassword": "Nova Senha",
     "invalidToken": "Token de redefinição inválido ou ausente",
     "passwordResetSuccess": "Senha redefinida com sucesso"
+  },
+    "admin": {
+    "articles": {
+      "title": "Gerenciar Artigos",
+      "create": "Criar Novo Artigo",
+      "edit": "Editar Artigo: {title}",
+      "published": "Publicado",
+      "draft": "Rascunho",
+      "save": "Salvar Alterações",
+      "content": "Conteúdo"
+    }
   }
 }

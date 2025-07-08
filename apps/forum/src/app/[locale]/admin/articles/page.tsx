@@ -1,35 +1,31 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]';
+import { api, Article } from '@pfsa/data';
 import { useTranslations } from 'next-intl';
-import { Card, Button } from '@pfsa/ui';
-import { fetchArticles } from '@pfsa/data';
 import Link from 'next/link';
 
-export async function getServerSideProps({ params }: { params: { locale: string } }) {
-  const articles = await fetchArticles(params.locale);
-  return { props: { articles } };
+interface AdminArticlesPageProps {
+  params: { locale: string };
 }
 
-export default async function Articles({ articles, params }: { articles: Article[]; params: { locale: string } }) {
-  const session = await getServerSession(authOptions);
-  const t = useTranslations('Admin.articles');
-  if (!session) return <div>{t('unauthorized')} <Link href={`/${params.locale}/admin/login`}>Login</Link></div>;
+export default async function AdminArticlesPage({ params }: AdminArticlesPageProps) {
+  const t = useTranslations('admin');
+  const articles = await api.get<Article[]>('/articles');
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-      <Link href={`/${params.locale}/admin/articles/create`}>
-        <Button>{t('create')}</Button>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4">{t('articles.title')}</h1>
+      <Link href={`/${params.locale}/admin/articles/create`} className="bg-blue-500 text-white p-2 rounded mb-4 inline-block">
+        {t('articles.create')}
       </Link>
-      <div className="grid gap-4 mt-4">
-        {articles.length === 0 && <p>{t('noArticles')}</p>}
+      <ul>
         {articles.map((article) => (
-          <Card key={article._id} title={article[`title_${params.locale}`]} content={article[`content_${params.locale}`]}>
-            <Link href={`/${params.locale}/admin/articles/edit/${article._id}`}>
-              <Button variant="outline">{t('edit')}</Button>
+          <li key={article._id} className="mb-4">
+            <Link href={`/${params.locale}/admin/articles/edit/${article._id}`} className="text-blue-500 hover:underline">
+              {article.title}
             </Link>
-          </Card>
+            <p className="text-gray-600">{article.published ? t('articles.published') : t('articles.draft')}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

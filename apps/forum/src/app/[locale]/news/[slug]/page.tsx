@@ -1,25 +1,32 @@
+import { api, Article } from '@pfsa/data';
 import { useTranslations } from 'next-intl';
-import { fetchArticles } from '@pfsa/data';
-import type { Article as BaseArticle } from '@pfsa/data';
+import { notFound } from 'next/navigation';
 
-type Article = BaseArticle & {
-  [key: `title_${string}`]: string;
-  [key: `content_${string}`]: string;
-};
-
-export async function getServerSideProps({ params }: { params: { slug: string; locale: string } }) {
-  const articles = await fetchArticles();
-  const article = articles.find((a) => a.slug === params.slug) || null;
-  return { props: { article, locale: params.locale } };
+interface ArticlePageProps {
+  params: { slug: string; locale: string };
 }
 
-export default function ArticlePage({ article, locale }: { article: Article | null; locale: string }) {
-  const t = useTranslations('News');
-  if (!article) return <div>{t('noArticles')}</div>;
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const t = useTranslations('news');
+  let article: Article;
+
+  try {
+    article = await api.get<Article>(`/articles/${params.slug}`);
+  } catch (error) {
+    notFound();
+  }
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{article[`title_${locale}`]}</h1>
-      <p>{article[`content_${locale}`]}</p>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
+      <p className="text-gray-600 mb-4">{t('published')}: {new Date(article.createdAt).toLocaleDateString()}</p>
+      <div className="prose">{article.content}</div>
+      {article.tags.length > 0 && (
+        <div className="mt-4">
+          <span className="font-semibold">{t('tags')}: </span>
+          {article.tags.join(', ')}
+        </div>
+      )}
     </div>
   );
 }

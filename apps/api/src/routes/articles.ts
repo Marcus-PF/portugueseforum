@@ -21,6 +21,11 @@ articles.post('/', zValidator('json', createArticleSchema), async (c) => {
   await mongoose.connect(mongoUri, { dbName: 'pfsa' });
 
   const data = c.req.valid('json');
+  const user = c.get('jwtPayload'); // Set by authMiddleware
+  if (user.sub !== data.authorId) {
+    return c.json({ message: 'Unauthorized: Invalid authorId' }, 403);
+  }
+
   const article = new ArticleModel({
     title: data.title,
     content: data.content,
@@ -39,7 +44,6 @@ articles.get('/:slug', async (c) => {
   if (!mongoUri) {
     return c.json({ message: 'MONGODB_URI environment variable is not set' }, 500);
   }
-
   await mongoose.connect(mongoUri, { dbName: 'pfsa' });
 
   const slug = c.req.param('slug');
@@ -47,8 +51,18 @@ articles.get('/:slug', async (c) => {
   if (!article) {
     return c.json({ message: 'Article not found' }, 404);
   }
-
   return c.json(article);
+});
+
+articles.get('/', async (c) => {
+  const mongoUri = process.env['MONGODB_URI'];
+  if (!mongoUri) {
+    return c.json({ message: 'MONGODB_URI environment variable is not set' }, 500);
+  }
+  await mongoose.connect(mongoUri, { dbName: 'pfsa' });
+
+  const articles = await ArticleModel.find({ published: true }).lean();
+  return c.json(articles);
 });
 
 export default articles;

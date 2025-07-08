@@ -1,36 +1,44 @@
 {
   "name": "forum",
+  "version": "0.0.1",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/forum/src",
+  "sourceRoot": "apps/forum",
   "projectType": "application",
+  "tags": ["type:app", "scope:website"],
   "targets": {
     "build": {
       "executor": "@nx/next:build",
-      "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/forum"
+        "outputPath": "dist/apps/forum",
+        "root": "apps/forum",
+        "config": "apps/forum/next.config.mjs"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all"
+        }
       }
     },
-    "dev": {
-      "executor": "@nx/next:dev",
-      "options": {}
-    },
-    "start": {
-      "executor": "@nx/next:start",
-      "options": {}
+    "serve": {
+      "executor": "@nx/next:server",
+      "options": {
+        "root": "apps/forum",
+        "port": 3001
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["apps/forum/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/forum/**/*.ts", "apps/forum/**/*.tsx"]
       }
     },
-    "typecheck": {
-      "executor": "@nx/js:typecheck",
+    "test": {
+      "executor": "@nx/vite:test",
       "options": {
-        "tsConfig": "apps/forum/tsconfig.json"
+        "root": "apps/forum",
+        "testTimeout": 30000
       }
     }
-  },
-  "tags": ["frontend"]
+  }
 }

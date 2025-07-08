@@ -14,6 +14,14 @@
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "nxCloudId": "686beb588286ab16ba5b3331",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "type-check"]
+      }
+    }
+  },
   "plugins": [
     {
       "plugin": "@nx/js/typescript",
@@ -73,6 +81,10 @@
     }
   },
   "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["{options.outputPath}"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },
@@ -81,5 +93,19 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     }
-  }
+  },
+  "dependencyConstraints": [
+    {
+      "sourceTag": "scope:api",
+      "onlyDependOnLibsWithTags": ["scope:shared"]
+    },
+    {
+      "sourceTag": "scope:shared",
+      "onlyDependOnLibsWithTags": ["scope:shared"]
+    },
+    {
+      "sourceTag": "scope:forum",
+      "onlyDependOnLibsWithTags": ["scope:shared"]
+    }
+  ]
 }

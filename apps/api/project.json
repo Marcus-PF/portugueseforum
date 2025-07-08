@@ -1,34 +1,43 @@
 {
   "name": "api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "root": "apps/api",
   "sourceRoot": "apps/api/src",
   "projectType": "application",
   "targets": {
-    "build": {
-      "executor": "@nx/js:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/api"
-      }
-    },
-    "dev": {
-      "executor": "@nx/js:node",
-      "options": {
-        "main": "apps/api/src/main.ts"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/api/**/*.{ts,js}"]
+        "lintFilePatterns": ["apps/api/**/*.{ts,tsx}"]
       }
     },
-    "typecheck": {
-      "executor": "@nx/js:typecheck",
+    "test": {
+      "executor": "@nx/vite:test",
       "options": {
-        "tsConfig": "apps/api/tsconfig.json"
+        "passWithNoTests": true,
+        "config": "apps/api/vitest.config.ts"
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p apps/api/tsconfig.json"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx format:write --projects api"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx src/dev.ts",
+        "cwd": "apps/api"
       }
     }
   },
-  "tags": ["backend"]
+  "tags": ["scope:api", "type:application", "scope:shared"]
 }
