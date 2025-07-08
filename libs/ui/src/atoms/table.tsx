@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { cn } from "@pfsa/data"
+import { cn } from '@pfsa/utils/shared';
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (

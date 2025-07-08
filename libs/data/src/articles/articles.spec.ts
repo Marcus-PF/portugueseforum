@@ -7,7 +7,7 @@
 
 import { describe, it, expect, beforeAll } from 'vitest';
 import { fetchArticles } from './fetchArticles';
-import { connectToDatabase } from '../utils/db';
+import { connectToDatabase } from '../utils/backend/db';
 
 beforeAll(async () => {
   await connectToDatabase();

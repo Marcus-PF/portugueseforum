@@ -1,20 +1,14 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃    @pfsa/utils/frontend – Frontend Utility Exports     ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Utilities designed specifically for client/browser usage.
  *
  * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ *  - `api` → Fetch + typed HTTP wrappers
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧰 Frontend Utilities
  * ───────────────────────────────────────────────────────────── */
-export * from './articles';
-export * from './models';
-export * from './pages';
+export * from './api';

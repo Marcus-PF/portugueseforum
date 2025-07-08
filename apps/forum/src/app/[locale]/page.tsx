@@ -1,16 +1,34 @@
-import { useTranslations } from 'next-intl';
-import { Button } from '@pfsa/ui';
-import Link from 'next/link';
+/**
+ * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ * ┃    @pfsa/forum – Homepage (Locale-Aware Entry Point)  ┃
+ * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * Root page for the forum application. Renders hero content,
+ * introductory CTAs, and key entry modules (e.g. featured news).
+ *
+ * Sections:
+ *  - `HeroSection` → Landing headline + CTAs
+ *  - More components can be added incrementally
+ */
 
-export default function Home() {
+'use client';
+
+/* ─────────────────────────────────────────────────────────────
+ * 📦 Dependencies
+ * ───────────────────────────────────────────────────────────── */
+import { useTranslations } from 'next-intl';
+import { HeroSection } from '../../components/home/HeroSection';
+
+/* ─────────────────────────────────────────────────────────────
+ * 🧾 Page Component
+ * ───────────────────────────────────────────────────────────── */
+export default function HomePage() {
   const t = useTranslations('Home');
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-      <p className="mb-4">{t('description')}</p>
-      <Button asChild>
-        <Link href="/news">{t('News.title')}</Link>
-      </Button>
+    <div className="flex flex-col gap-16">
+      <HeroSection />
+      {/* Future: <FeaturedNews /> */}
+      {/* Future: <NewsletterSignup /> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@pfsa/data"
+import { cn } from '@pfsa/utils/shared';
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (

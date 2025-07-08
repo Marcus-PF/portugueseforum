@@ -13,7 +13,7 @@ import {
   type FieldValues,
 } from "react-hook-form"
 
-import { cn } from "@pfsa/data"
+import { cn } from '@pfsa/utils/shared';
 import { Label } from "./label"
 
 const Form = FormProvider

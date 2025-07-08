@@ -1,20 +1,16 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃     @pfsa/utils/backend – Backend Utility Exports      ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Utilities for Node.js/backend environments (e.g., db, email).
  *
  * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ *  - `db`    → Mongoose connection + helpers
+ *  - `email` → Nodemailer + password reset workflows
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧰 Backend Utilities
  * ───────────────────────────────────────────────────────────── */
-export * from './articles';
-export * from './models';
-export * from './pages';
+export * from './db';
+export * from './email';

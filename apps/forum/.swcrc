@@ -1,4 +1,12 @@
 {
+  // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+  // ┃       @pfsa/forum – SWC Compiler Configuration         ┃
+  // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+  // This file configures the SWC compiler for the Next.js app.
+  // Supports TypeScript, decorators, dynamic imports, and
+  // optimized metadata generation for use with class-transformers,
+  // DI systems, and Nx tooling.
+
   "jsc": {
     "target": "es2017",
     "parser": {
@@ -7,24 +15,31 @@
       "dynamicImport": true
     },
     "transform": {
-      "decoratorMetadata": true,
-      "legacyDecorator": true
+      "legacyDecorator": true,
+      "decoratorMetadata": true
     },
     "keepClassNames": true,
     "externalHelpers": true,
     "loose": true
   },
+
   "module": {
     "type": "commonjs"
   },
+
   "sourceMaps": true,
+
+  // ─────────────────────────────────────────────────────────────
+  // 🧾 Exclusions
+  // ─────────────────────────────────────────────────────────────
   "exclude": [
-    "jest.config.ts",
-    ".*\\.spec.tsx?$",
-    ".*\\.test.tsx?$",
-    "./src/jest-setup.ts$",
-    "./**/jest-setup.ts$",
-    ".*.js$",
-    ".*.d.ts$"
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.d.ts",
+    "**/*.js",
+    "**/jest-setup.ts",
+    "jest.config.ts"
   ]
 }

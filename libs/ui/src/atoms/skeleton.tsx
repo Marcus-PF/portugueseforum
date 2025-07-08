@@ -1,4 +1,4 @@
-import { cn } from "@pfsa/data"
+import { cn } from '@pfsa/utils/shared';
 
 function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (

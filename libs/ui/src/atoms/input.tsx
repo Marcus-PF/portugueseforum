@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@pfsa/data"
+import { cn } from '@pfsa/utils/shared';
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
