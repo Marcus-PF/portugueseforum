@@ -1,72 +1,117 @@
+'use client'
+
 /**
- * ────────────────────────────────────────────────────────────────
- * 🦶 Footer — Forum Site Footer
- * ────────────────────────────────────────────────────────────────
- * Displays site branding, basic nav links, and legal information.
- * Responsive layout with dark/light mode support.
- * 
- * 📦 Tailwind v4 via globals.css (semantic tokens)
- * 📘 Uses ShadCN primitives via @pfsa/ui
- * 🧱 Extensible for future additions (socials, locale switch, etc)
- * 
- * ────────────────────────────────────────────────────────────────
+ * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+ * ┃               Footer – Portuguese Forum               ┃
+ * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * Responsive footer with logo, navigation, contact,
+ * and social links. Matches updated brand style.
  */
 
-'use client';
+import Link from 'next/link'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { Facebook, Instagram, Mail, Phone } from 'lucide-react'
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Separator } from '@pfsa/ui';
-import { cn } from '@pfsa/utils/shared';
+export function Footer() {
+  const { locale } = useParams()
 
-
-// ────────────────────────────────────────────────────────────────
-// 🧩 Component
-// ────────────────────────────────────────────────────────────────
-
-export const Footer = () => {
-  const pathname = usePathname();
-  const locale = pathname.split('/')[1];
-
-  const footerLinks = [
-    { label: 'About', href: `/${locale}/about` },
-    { label: 'Contact', href: `/${locale}/contact` },
-    { label: 'Privacy Policy', href: `/${locale}/privacy-policy` },
-  ];
+  const navLinks = [
+    { label: 'About', href: '/about' },
+    { label: 'Community', href: '/community' },
+    { label: 'News', href: '/news' },
+    { label: 'Contact', href: '/contact' },
+  ]
 
   return (
-    <footer className="w-full border-t bg-muted px-4 py-6 sm:px-6">
-      <div className="mx-auto max-w-7xl space-y-4">
-        {/* ─── Links Row ───────────────────────── */}
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="text-sm text-muted-foreground font-medium">
-            &copy; {new Date().getFullYear()} PFórum. All rights reserved.
-          </div>
+    <footer className="mt-24 border-t border-border bg-secondary text-secondary-foreground">
+      <div className="container mx-auto px-4 py-12 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+        {/* Logo & tagline */}
+        <div className="flex flex-col gap-2">
+          <Link href={`/${locale}`}>
+            <Image
+              src="/pf-nav-logo-light.svg"
+              alt="Portuguese Forum"
+              width={140}
+              height={32}
+              className="h-8 w-auto dark:hidden"
+            />
+            <Image
+              src="/pf-nav-logo-dark.svg"
+              alt="Portuguese Forum"
+              width={140}
+              height={32}
+              className="h-8 w-auto hidden dark:block"
+            />
+          </Link>
+          <p className="text-sm mt-2">
+            A home for the Portuguese-speaking community in South Africa and beyond.
+          </p>
+        </div>
 
-          <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium text-muted-foreground">
-            {footerLinks.map((item) => (
+        {/* Navigation */}
+        <div>
+          <h4 className="text-sm font-semibold mb-3">Explore</h4>
+          <nav className="flex flex-col gap-2">
+            {navLinks.map((link) => (
               <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'transition-colors hover:text-primary',
-                  pathname === item.href && 'text-primary'
-                )}
+                key={link.href}
+                href={`/${locale}${link.href}`}
+                className="hover:text-muted transition-colors text-sm"
               >
-                {item.label}
+                {link.label}
               </Link>
             ))}
           </nav>
         </div>
 
-        {/* ─── Divider ────────────────────────── */}
-        <Separator className="hidden sm:block" />
+        {/* Contact */}
+        <div>
+          <h4 className="text-sm font-semibold mb-3">Contact</h4>
+          <ul className="text-sm flex flex-col gap-2">
+            <li className="flex items-center gap-2">
+              <Phone className="h-4 w-4" />
+              <a href="tel:0800428428" className="hover:text-muted">0800 428 428</a>
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <a href="mailto:info@portugueseforum.org.za" className="hover:text-muted">
+                info@portugueseforum.org.za
+              </a>
+            </li>
+          </ul>
+        </div>
 
-        {/* ─── Optional future section ─────────── */}
-        {/* <div className="flex justify-end">
-          <ThemeToggle />
-        </div> */}
+        {/* Socials */}
+        <div>
+          <h4 className="text-sm font-semibold mb-3">Follow Us</h4>
+          <div className="flex gap-4 items-center">
+            <a
+              href="https://web.facebook.com/groups/portugueseforumsa"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-muted"
+              aria-label="Facebook"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              href="https://instagram.com/portugueseforum"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-muted"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom */}
+      <div className="border-t border-border py-4 text-center text-xs">
+        © 2025 Portuguese Forum. All rights reserved.
       </div>
     </footer>
-  );
-};
+  )
+}
