@@ -1,24 +1,21 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃    @pfsa/data – Page Creation/Update DTOs            ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Data transfer objects for page creation and update operations.
  *
- * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ * Exports:
+ *  - `CreateOrUpdatePageDto` → Input interface for page operations
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧠 DTO Exports
  * ───────────────────────────────────────────────────────────── */
-
-// New structured exports
-export * from './constants';
-export * from './dto';
-export * from './mocks';
-export * from './schemas';
-export * from './services';
+export interface CreateOrUpdatePageDto {
+  slug: string;
+  title_en: string;
+  title_pt: string;
+  content_en: string;
+  content_pt: string;
+  published?: boolean;
+}

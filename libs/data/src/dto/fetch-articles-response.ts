@@ -1,24 +1,26 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃    @pfsa/data – Article Fetch Response DTOs          ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Response interfaces for article fetching operations.
  *
- * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ * Exports:
+ *  - `FetchArticlesResponse` → Response interface for article list
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧠 DTO Exports
  * ───────────────────────────────────────────────────────────── */
-
-// New structured exports
-export * from './constants';
-export * from './dto';
-export * from './mocks';
-export * from './schemas';
-export * from './services';
+export interface FetchArticlesResponse {
+  articles: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    content: string;
+    published: boolean;
+    tags: string[];
+    createdAt: Date;
+    updatedAt: Date;
+  }>;
+  total: number;
+}

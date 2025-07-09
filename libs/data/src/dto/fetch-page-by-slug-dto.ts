@@ -1,24 +1,29 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃    @pfsa/data – Page Fetch DTOs                      ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Data transfer objects for page fetching operations.
  *
- * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ * Exports:
+ *  - `FetchPageBySlugDto` → Input interface for page fetch
+ *  - `FetchPageBySlugResponse` → Response interface for page fetch
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧠 DTO Exports
  * ───────────────────────────────────────────────────────────── */
+export interface FetchPageBySlugDto {
+  slug: string;
+}
 
-// New structured exports
-export * from './constants';
-export * from './dto';
-export * from './mocks';
-export * from './schemas';
-export * from './services';
+export interface FetchPageBySlugResponse {
+  _id: string;
+  slug: string;
+  title_en: string;
+  title_pt: string;
+  content_en: string;
+  content_pt: string;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}

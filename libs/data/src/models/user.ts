@@ -2,13 +2,6 @@
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
  * ┃           @pfsa/models – User Schema & Model          ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Defines the schema for application users, supporting
- * both email/password and social login (e.g. Google).
- * Includes roles, reset tokens, timestamps, and validation.
- *
- * Exports:
- *  - `UserModel` → Mongoose model
- *  - `User`      → TypeScript type from schema
  */
 
 /* ─────────────────────────────────────────────────────────────
@@ -39,38 +32,53 @@ export const UserSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ['user', 'admin', 'moderator'],
       default: 'user',
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isBanned: {
+      type: Boolean,
+      default: false,
+    },
+    bannedAt: {
+      type: Date,
+    },
+    bannedReason: {
+      type: String,
+    },
+    bannedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    lastLoginAt: {
+      type: Date,
     },
     googleId: {
       type: String,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
     resetToken: {
       type: String,
     },
-    resetTokenExpires: {
+    resetTokenExpiry: {
       type: Date,
+    },
+    verificationToken: {
+      type: String,
+    },
+    profileImage: {
+      type: String,
     },
   },
   {
-    timestamps: true, // Adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
 /* ─────────────────────────────────────────────────────────────
  * 🧠 Type & Model Exports
  * ───────────────────────────────────────────────────────────── */
-/**
- * TypeScript type based on UserSchema.
- */
 export type User = InferSchemaType<typeof UserSchema>;
-
-/**
- * Mongoose model for the `users` collection.
- */
-export const UserModel =
-  models['User'] || model<User>('User', UserSchema, 'users');
+export const UserModel = models['User'] || model<User>('User', UserSchema, 'users');

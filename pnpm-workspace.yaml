@@ -6,6 +6,7 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
   - bcrypt
+  - msw
   - nx
   - unrs-resolver
 ignoredBuiltDependencies:

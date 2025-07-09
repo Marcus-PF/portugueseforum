@@ -1,58 +1,30 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃    @pfsa/api – Hono Main Application Entry          ┃
+ * ┃    @pfsa/data – Newsletter Zod Schema Validation     ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * Zod schemas for newsletter subscription validation.
+ *
+ * Exports:
+ *  - `newsletterSchema` → Zod schema for newsletter validation
+ *  - `NewsletterSchema` → Inferred TypeScript type
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
-import { connectToDatabase } from '@pfsa/data';
-
-// Route imports
-import articles from './routes/articles';
-import auth from './routes/auth';
-import users from './routes/users';
+import { z } from 'zod';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Configuration
+ * 🧾 Schema Definition
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
-
-// Global middleware
-app.use('*', logger());
-app.use('*', cors({
-  origin: [
-    'http://localhost:3000',
-    'https://portugueseforum.com',
-    'https://www.portugueseforum.com',
-  ],
-  credentials: true,
-}));
-
-// Health check
-app.get('/', (c) => {
-  return c.json({ 
-    message: 'Portuguese Forum API',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-    jwt: !!process.env.JWT_SECRET,
-    mongodb: !!process.env.MONGODB_URI,
-  });
+export const newsletterSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  subscribed: z.boolean().default(true),
+  createdAt: z.date().default(() => new Date()),
+  updatedAt: z.date().default(() => new Date()),
 });
 
-// Route mounting
-app.route('/articles', articles);
-app.route('/auth', auth);
-app.route('/users', users);
-
-// Initialize database connection
-connectToDatabase().catch(console.error);
-
 /* ─────────────────────────────────────────────────────────────
- * 🚀 Export
+ * 🧠 Type Exports
  * ───────────────────────────────────────────────────────────── */
-export default app;
+export type NewsletterSchema = z.infer<typeof newsletterSchema>;

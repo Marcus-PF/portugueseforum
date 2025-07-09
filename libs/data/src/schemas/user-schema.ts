@@ -1,58 +1,49 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃    @pfsa/api – Hono Main Application Entry          ┃
+ * ┃     @pfsa/data – User Zod Schema Validation           ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
-import { connectToDatabase } from '@pfsa/data';
-
-// Route imports
-import articles from './routes/articles';
-import auth from './routes/auth';
-import users from './routes/users';
+import { z } from 'zod';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Configuration
+ * 🧾 Schema Definition
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
-
-// Global middleware
-app.use('*', logger());
-app.use('*', cors({
-  origin: [
-    'http://localhost:3000',
-    'https://portugueseforum.com',
-    'https://www.portugueseforum.com',
-  ],
-  credentials: true,
-}));
-
-// Health check
-app.get('/', (c) => {
-  return c.json({ 
-    message: 'Portuguese Forum API',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-    jwt: !!process.env.JWT_SECRET,
-    mongodb: !!process.env.MONGODB_URI,
-  });
+export const userSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters').optional(),
+  name: z.string().trim().optional(),
+  role: z.enum(['admin', 'user', 'moderator']).default('user'),
+  isVerified: z.boolean().default(false),
+  isBanned: z.boolean().default(false),
+  bannedAt: z.date().optional(),
+  bannedReason: z.string().optional(),
+  bannedBy: z.string().optional(),
+  lastLoginAt: z.date().optional(),
+  googleId: z.string().optional(),
+  resetToken: z.string().optional(),
+  resetTokenExpiry: z.date().optional(),
+  verificationToken: z.string().optional(),
+  profileImage: z.string().url().optional(),
+  createdAt: z.date().default(() => new Date()),
+  updatedAt: z.date().default(() => new Date()),
 });
 
-// Route mounting
-app.route('/articles', articles);
-app.route('/auth', auth);
-app.route('/users', users);
+export const createUserSchema = userSchema.pick({
+  email: true,
+  password: true,
+  name: true,
+  role: true,
+});
 
-// Initialize database connection
-connectToDatabase().catch(console.error);
+export const updateUserSchema = userSchema.partial();
 
 /* ─────────────────────────────────────────────────────────────
- * 🚀 Export
+ * 🧠 Type Exports
  * ───────────────────────────────────────────────────────────── */
-export default app;
+export type UserSchema = z.infer<typeof userSchema>;
+export type CreateUserSchema = z.infer<typeof createUserSchema>;
+export type UpdateUserSchema = z.infer<typeof updateUserSchema>;

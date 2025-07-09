@@ -1,58 +1,34 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃    @pfsa/api – Hono Main Application Entry          ┃
+ * ┃    @pfsa/data – Page Zod Schema Validation           ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+ * Zod schemas for bilingual page validation and type inference.
+ *
+ * Exports:
+ *  - `pageSchema` → Zod schema for page validation
+ *  - `PageSchema` → Inferred TypeScript type
  */
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
-import { connectToDatabase } from '@pfsa/data';
-
-// Route imports
-import articles from './routes/articles';
-import auth from './routes/auth';
-import users from './routes/users';
+import { z } from 'zod';
 
 /* ─────────────────────────────────────────────────────────────
- * 🧾 App Configuration
+ * 🧾 Schema Definition
  * ───────────────────────────────────────────────────────────── */
-const app = new Hono();
-
-// Global middleware
-app.use('*', logger());
-app.use('*', cors({
-  origin: [
-    'http://localhost:3000',
-    'https://portugueseforum.com',
-    'https://www.portugueseforum.com',
-  ],
-  credentials: true,
-}));
-
-// Health check
-app.get('/', (c) => {
-  return c.json({ 
-    message: 'Portuguese Forum API',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-    jwt: !!process.env.JWT_SECRET,
-    mongodb: !!process.env.MONGODB_URI,
-  });
+export const pageSchema = z.object({
+  slug: z.string().min(1, 'Slug is required'),
+  title_en: z.string().min(1, 'English title is required'),
+  title_pt: z.string().min(1, 'Portuguese title is required'),
+  content_en: z.string().min(1, 'English content is required'),
+  content_pt: z.string().min(1, 'Portuguese content is required'),
+  published: z.boolean().default(false),
+  createdAt: z.date().default(() => new Date()),
+  updatedAt: z.date().default(() => new Date()),
 });
 
-// Route mounting
-app.route('/articles', articles);
-app.route('/auth', auth);
-app.route('/users', users);
-
-// Initialize database connection
-connectToDatabase().catch(console.error);
-
 /* ─────────────────────────────────────────────────────────────
- * 🚀 Export
+ * 🧠 Type Exports
  * ───────────────────────────────────────────────────────────── */
-export default app;
+export type PageSchema = z.infer<typeof pageSchema>;

@@ -13,13 +13,21 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@pfsa/api-client": ["libs/api-client/src"],
+      "@pfsa/auth": ["libs/auth/src/index.ts"],
+      "@pfsa/constants": ["libs/data/src/constants"],
       "@pfsa/data": ["libs/data/src"],
-      "@pfsa/utils/backend": ["libs/data/src/utils/backend"],
-      "@pfsa/utils/frontend": ["libs/data/src/utils/frontend"],
-      "@pfsa/utils/shared": ["libs/data/src/utils/shared"],
+      "@pfsa/dto": ["libs/data/src/dto"],
+      "@pfsa/i18n": ["libs/i18n/src"],
+      "@pfsa/mocks": ["libs/data/src/mocks"],
+      "@pfsa/models": ["libs/data/src/models"],
+      "@pfsa/schemas": ["libs/data/src/schemas"],
+      "@pfsa/services": ["libs/data/src/services"],
       "@pfsa/ui": ["libs/ui/src"],
       "@pfsa/ui/global": ["libs/ui/src/styles/globals.css"],
-      "@pfsa/i18n": ["apps/forum/src/app/i18n"]
+      "@pfsa/utils/backend": ["libs/data/src/utils/backend"],
+      "@pfsa/utils/frontend": ["libs/data/src/utils/frontend"],
+      "@pfsa/utils/shared": ["libs/data/src/utils/shared"]
     }
   }
 }

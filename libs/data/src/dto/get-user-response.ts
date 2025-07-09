@@ -1,24 +1,21 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/data – Library Entry Point            ┃
+ * ┃    @pfsa/data – User Response DTOs                   ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point to all exported modules from the
- * `@pfsa/data` workspace library.
+ * Response interfaces for user operations.
  *
- * 🔁 Re-exports:
- *  - `articles/` → Article utilities
- *  - `models/`   → All shared Mongoose schemas + models
- *  - `pages/`    → Page service logic (CRUD)
- *  - `utils/`    → Shared helpers (db, api, email, etc.)
+ * Exports:
+ *  - `GetUserResponse` → Response interface for user data
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧠 DTO Exports
  * ───────────────────────────────────────────────────────────── */
-
-// New structured exports
-export * from './constants';
-export * from './dto';
-export * from './mocks';
-export * from './schemas';
-export * from './services';
+export interface GetUserResponse {
+  _id: string;
+  email: string;
+  role: 'admin' | 'user';
+  isVerified: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
