@@ -1,12 +1,16 @@
 # See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# compiled output
+# Compiled output
 dist
 tmp
 out-tsc
+build
 
-# dependencies
+# Dependencies
 node_modules
+.pnpm-store
+.yarn
+.npm
 
 # IDEs and editors
 /.idea
@@ -24,7 +28,7 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# misc
+# Misc
 /.sass-cache
 /connect.lock
 /coverage
@@ -57,3 +61,108 @@ vitest.config.*.timestamp*
 .env.local
 .env.development
 .env.production
+.env.test
+!.env.example
+
+# Testing
+coverage
+*.lcov
+test-results
+playwright-report
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Temporary folders
+tmp/
+temp/
+
+# MongoDB (if running locally)
+data/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Storybook build outputs
+storybook-static
+
+# Turborepo cache
+.turbo
+
+# Vercel
+.vercel
+
+# Tailwind CSS
+.tailwindcss-cache
+
+# MSW (Mock Service Worker)
+public/mockServiceWorker.js
+
+# Generated files
+generated/
+.generated/
+
+# Local Netlify folder
+.netlify
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+!.env.example
+!.env.test
+
+# App-specific environment files
+apps/*/.env
+apps/*/.env.local
+apps/*/.env.development
+apps/*/.env.production
+libs/*/.env
+libs/*/.env.local

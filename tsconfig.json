@@ -4,13 +4,25 @@
   "files": [],
   "references": [
     {
+      "path": "./apps/api"
+    },
+    {
       "path": "./apps/forum"
     },
     {
-      "path": "./libs/ui"
+      "path": "./libs/api-client"
+    },
+    {
+      "path": "./libs/auth"
     },
     {
       "path": "./libs/data"
+    },
+    {
+      "path": "./libs/i18n"
+    },
+    {
+      "path": "./libs/ui"
     }
   ]
 }

@@ -1,14 +1,25 @@
 {
   "name": "@pfsa/source",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "build": "nx build",
     "dev:forum": "nx serve forum",
     "dev:api": "nx serve api",
+    "dev:all": "nx run-many --target=serve --projects=api,forum --parallel",
     "test": "nx test",
+    "test:watch": "nx test --watch",
+    "test:coverage": "nx test --coverage",
     "lint": "nx lint",
-    "format": "nx format"
+    "lint:fix": "nx lint --fix",
+    "format": "nx format:write",
+    "format:check": "nx format:check",
+    "type-check": "nx run-many --target=type-check --all",
+    "clean": "nx reset && rm -rf node_modules && pnpm install",
+    "graph": "nx graph",
+    "affected:test": "nx affected --target=test",
+    "affected:lint": "nx affected --target=lint",
+    "affected:build": "nx affected --target=build"
   },
   "private": true,
   "devDependencies": {
@@ -113,6 +124,7 @@
     "framer-motion": "^12.23.0",
     "hono": "^4.8.4",
     "input-otp": "^1.4.2",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.525.0",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.2",
@@ -144,5 +156,13 @@
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "nx": {
+    "includedScripts": ["dev:all", "test:coverage", "type-check", "clean"]
   }
 }

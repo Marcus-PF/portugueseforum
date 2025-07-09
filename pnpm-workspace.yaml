@@ -1,15 +1,51 @@
 packages:
-  - libs/*
-  - apps/*
+  - 'libs/*'
+  - 'apps/*'
+
 onlyBuiltDependencies:
   - '@swc/core'
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
-  - bcrypt
-  - msw
-  - nx
-  - unrs-resolver
+  - 'bcrypt'
+  - 'msw'
+  - 'nx'
+  - 'esbuild'
+
 ignoredBuiltDependencies:
   - '@parcel/watcher'
-  - esbuild
-  - sharp
+  - 'sharp'
+  - 'fsevents'
+
+# Optimize dependency resolution
+packageExtensions:
+  '@radix-ui/react-*':
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+# Improve hoisting for better performance
+hoistingLimits:
+  workspaces: true
+  dependencies: true
+
+# Optimize for monorepo performance
+publicHoistPattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '*typescript*'
+  - '*@types/*'
+  - '*@nx/*'
+  - 'nx'
+  - 'tslib'
+  - 'react'
+  - 'react-dom'
+  - '@next/*'
+  - 'next'
+
+# Shamefully hoist problematic packages
+shamefullyHoist:
+  - '*@types/node*'
+  - '*@types/react*'
+  - '*@types/react-dom*'

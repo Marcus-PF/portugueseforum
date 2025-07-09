@@ -11,14 +11,21 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/workflows/ci.yml",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/pnpm-lock.yaml",
+      "{workspaceRoot}/tailwind.config.js",
+      "{workspaceRoot}/postcss.config.mjs"
+    ]
   },
   "nxCloudId": "686beb588286ab16ba5b3331",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "type-check"]
+        "cacheableOperations": ["lint", "test", "typecheck"]
       }
     }
   },
@@ -29,8 +36,7 @@
         "typecheck": {
           "targetName": "typecheck"
         }
-      },
-      "exclude": ["libs/ui/*", "libs/data/*"]
+      }
     },
     {
       "plugin": "@nx/next/plugin",
@@ -38,24 +44,14 @@
         "startTargetName": "start",
         "buildTargetName": "build",
         "devTargetName": "dev",
-        "serveStaticTargetName": "serve-static",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
+        "serveTargetName": "serve",
+        "serveStaticTargetName": "serve-static"
       }
     },
     {
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/js/typescript",
-      "include": ["libs/ui/*", "libs/data/*"],
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        }
       }
     },
     {
@@ -66,9 +62,7 @@
         "devTargetName": "dev",
         "previewTargetName": "preview",
         "serveStaticTargetName": "serve-static",
-        "typecheckTargetName": "typecheck",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
+        "typecheckTargetName": "typecheck"
       }
     }
   ],
@@ -78,34 +72,75 @@
         "style": "css",
         "linter": "eslint"
       }
+    },
+    "@nx/js": {
+      "library": {
+        "linter": "eslint",
+        "unitTestRunner": "vitest",
+        "bundler": "none",
+        "buildable": false,
+        "publishable": false
+      }
+    },
+    "@nx/react": {
+      "component": {
+        "style": "css"
+      }
     }
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["{options.outputPath}"]
+      "outputs": ["{options.outputPath}"],
+      "cache": true
     },
     "test": {
-      "dependsOn": ["^build"]
-    },
-    "@nx/esbuild:esbuild": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["default", "^default"]
+    },
+    "lint": {
+      "cache": true
+    },
+    "typecheck": {
+      "cache": true
+    },
+    "@nx/vite:test": {
+      "cache": true,
+      "inputs": ["default", "^default"]
     }
   },
   "dependencyConstraints": [
     {
       "sourceTag": "scope:api",
-      "onlyDependOnLibsWithTags": ["scope:shared"]
+      "onlyDependOnLibsWithTags": ["scope:shared", "scope:backend"]
+    },
+    {
+      "sourceTag": "scope:forum",
+      "onlyDependOnLibsWithTags": ["scope:shared", "scope:frontend"]
     },
     {
       "sourceTag": "scope:shared",
       "onlyDependOnLibsWithTags": ["scope:shared"]
     },
     {
-      "sourceTag": "scope:forum",
-      "onlyDependOnLibsWithTags": ["scope:shared"]
+      "sourceTag": "scope:backend",
+      "onlyDependOnLibsWithTags": ["scope:shared", "scope:backend"]
+    },
+    {
+      "sourceTag": "scope:frontend",
+      "onlyDependOnLibsWithTags": ["scope:shared", "scope:frontend"]
+    },
+    {
+      "sourceTag": "type:app",
+      "onlyDependOnLibsWithTags": ["type:lib", "type:util"]
+    },
+    {
+      "sourceTag": "type:lib",
+      "onlyDependOnLibsWithTags": ["type:lib", "type:util"]
+    },
+    {
+      "sourceTag": "type:util",
+      "onlyDependOnLibsWithTags": ["type:util"]
     }
   ]
 }
