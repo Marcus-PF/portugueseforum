@@ -1,21 +1,16 @@
+// filepath: libs/ui/src/layouts/admin/index.ts
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/ui – Library Entry Point              ┃
+ * ┃              @pfsa/ui – Admin Layout                ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point for re-exporting UI building blocks.
- *
- * 🔁 Re-exports:
- *  - `atoms/`  → Design primitives (buttons, dialogs, inputs, etc.)
- *  - `hooks/`  → UI-specific utility hooks (e.g., responsive)
- *
- * 🧵 Note:
- *  - Global styles are injected manually where needed.
- *    (e.g., `@pfsa/ui/global` → mapped in `tsconfig.base.json`)
+ * Admin layout components and provider exports.
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 📦 Exports
  * ───────────────────────────────────────────────────────────── */
-export * from './atoms';
-export * from './hooks';
-export * from './layouts'
+export { AdminLayout } from './AdminLayout';
+export { AdminLayoutProvider, useAdminLayout } from './AdminLayoutProvider';
+export { AdminSidebar } from './AdminSidebar';
+export { AdminHeader } from './AdminHeader';
+export { AdminBreadcrumbs } from './AdminBreadcrumbs';

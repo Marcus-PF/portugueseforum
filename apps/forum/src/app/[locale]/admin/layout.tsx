@@ -1,60 +1,77 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃     @pfsa/forum – Next.js Configuration (App Dir)     ┃
+ * ┃       @pfsa/forum – Admin Section Layout            ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * This configuration sets up Next.js 15 for Portuguese Forum,
- * with Nx support, localization via `next-intl`, and MDX processing.
+ * Admin section layout wrapper that provides the admin
+ * layout context and components for all admin pages.
  */
 
-import { withNx } from '@nx/next';
-import createNextIntlPlugin from 'next-intl/plugin';
-import createMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+/* ─────────────────────────────────────────────────────────────
+ * 📦 Dependencies
+ * ───────────────────────────────────────────────────────────── */
+import { AdminLayoutProvider } from '@pfsa/ui';
+import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Plugin Configuration (next-intl)
+ * 🧾 Layout Props
  * ───────────────────────────────────────────────────────────── */
-const withNextIntl = createNextIntlPlugin('./src/app/i18n/request.ts');
+interface AdminLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{
+    locale: string;
+  }>;
+}
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 MDX Configuration
+ * 🧠 Admin Layout Component
  * ───────────────────────────────────────────────────────────── */
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [
-      rehypeHighlight,
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: {
-            className: ['anchor'],
-          },
-        },
-      ],
-    ],
-  },
-});
+export default async function AdminLayout({ 
+  children, 
+  params
+}: AdminLayoutProps) {
+  // Await params before using its properties
+  const { locale } = await params;
+  
+  // Verify locale is supported
+  const supportedLocales = ['en', 'pt'];
+  if (!supportedLocales.includes(locale)) {
+    notFound();
+  }
+
+  // Get translations for admin section
+  const t = await getTranslations('admin');
+
+  // TODO: Replace with actual auth/session logic
+  const mockUser = {
+    id: '1',
+    name: 'Admin User',
+    email: 'admin@portugueseforum.co.za',
+    avatar: '/avatars/admin.jpg',
+    role: 'admin' as const,
+  };
+
+  return (
+    <AdminLayoutProvider 
+      initialUser={mockUser}
+      initialTheme="system"
+    >
+      <div className="min-h-screen bg-background">
+        {children}
+      </div>
+    </AdminLayoutProvider>
+  );
+}
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Base Next.js Configuration
+ * 🔧 Metadata
  * ───────────────────────────────────────────────────────────── */
-const nextConfig = {
-  nx: {
-    svgr: false, // We use static SVG imports instead of SVGR
-  },
-  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'], // Enable MDX file processing
-  experimental: {
-    mdxRs: true, // Use Rust-based MDX compiler for better performance
+export const metadata: Metadata = {
+  title: 'Admin Panel - Portuguese Forum',
+  description: 'Administrative dashboard for Portuguese Forum of South Africa',
+  robots: {
+    index: false,
+    follow: false,
   },
 };
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export (Chain all plugins together)
- * ───────────────────────────────────────────────────────────── */
-export default withNx(withNextIntl(withMDX(nextConfig)));

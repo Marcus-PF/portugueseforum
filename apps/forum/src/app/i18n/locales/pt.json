@@ -88,6 +88,140 @@
     "title": "Política de Privacidade",
     "description": "Nosso compromisso com sua privacidade."
   },
+  "admin": {
+    "title": "Painel de Administração",
+    "welcome": "Bem-vindo ao Painel de Administração",
+    "dashboard": {
+      "title": "Painel",
+      "welcome": "Bem-vindo de volta! Aqui está o que está acontecendo com o seu fórum.",
+      "stats": {
+        "totalUsers": "Total de Usuários",
+        "totalPosts": "Total de Posts",
+        "totalComments": "Comentários",
+        "monthlyGrowth": "Crescimento Mensal",
+        "activeUsers": "Usuários Ativos",
+        "pendingReviews": "Revisões Pendentes",
+        "newRegistrations": "Novos Registros"
+      },
+      "activity": {
+        "title": "Atividade Recente",
+        "subtitle": "Últimas ações e atualizações do seu fórum",
+        "userRegistered": "Novo usuário registrado",
+        "postPublished": "Novo post publicado",
+        "commentFlagged": "Comentário sinalizado para revisão",
+        "postEdited": "Post editado",
+        "userBanned": "Usuário banido",
+        "moderatorAction": "Ação do moderador tomada"
+      },
+      "quickActions": {
+        "title": "Ações Rápidas",
+        "subtitle": "Tarefas administrativas comuns",
+        "manageUsers": "Gerenciar Usuários",
+        "reviewPosts": "Revisar Posts",
+        "viewAnalytics": "Ver Análises",
+        "documentation": "Documentação",
+        "settings": "Configurações",
+        "security": "Segurança"
+      },
+      "alerts": {
+        "pendingReviews": "Você tem {count} itens pendentes de revisão",
+        "reviewNow": "Revisar Agora"
+      }
+    },
+    "users": {
+      "title": "Usuários",
+      "subtitle": "Gerenciar usuários do fórum e suas permissões",
+      "stats": {
+        "totalUsers": "Total de Usuários",
+        "activeUsers": "Usuários Ativos",
+        "moderators": "Moderadores",
+        "newThisWeek": "Novos Esta Semana"
+      },
+      "table": {
+        "title": "Todos os Usuários",
+        "subtitle": "Gerenciar contas de usuário e permissões",
+        "user": "Usuário",
+        "role": "Função",
+        "status": "Status",
+        "posts": "Posts",
+        "lastSeen": "Último Visto",
+        "joinDate": "Data de Entrada",
+        "actions": "Ações"
+      },
+      "actions": {
+        "search": "Pesquisar",
+        "filter": "Filtrar",
+        "addUser": "Adicionar Usuário",
+        "viewProfile": "Ver Perfil",
+        "editUser": "Editar Usuário",
+        "banUser": "Banir Usuário",
+        "promoteUser": "Promover Usuário"
+      },
+      "roles": {
+        "admin": "Administrador",
+        "moderator": "Moderador",
+        "user": "Usuário"
+      },
+      "status": {
+        "active": "Ativo",
+        "inactive": "Inativo",
+        "banned": "Banido",
+        "pending": "Pendente"
+      }
+    },
+    "posts": {
+      "title": "Posts",
+      "subtitle": "Gerenciar posts e conteúdo do fórum",
+      "stats": {
+        "totalPosts": "Total de Posts",
+        "published": "Publicados",
+        "drafts": "Rascunhos",
+        "flagged": "Sinalizados"
+      },
+      "actions": {
+        "createPost": "Criar Post",
+        "editPost": "Editar Post",
+        "deletePost": "Excluir Post",
+        "publishPost": "Publicar Post",
+        "flagPost": "Sinalizar Post",
+        "approvePost": "Aprovar Post"
+      },
+      "status": {
+        "published": "Publicado",
+        "draft": "Rascunho",
+        "flagged": "Sinalizado",
+        "archived": "Arquivado"
+      }
+    },
+    "navigation": {
+      "dashboard": "Painel",
+      "users": "Usuários",
+      "posts": "Posts",
+      "comments": "Comentários",
+      "analytics": "Análises",
+      "moderation": "Moderação",
+      "translations": "Traduções",
+      "database": "Base de Dados",
+      "email": "E-mail",
+      "documentation": "Documentação",
+      "apiDocs": "Referência da API",
+      "settings": "Configurações",
+      "security": "Segurança"
+    },
+    "breadcrumbs": {
+      "admin": "Admin",
+      "dashboard": "Painel",
+      "users": "Usuários",
+      "posts": "Posts",
+      "settings": "Configurações"
+    },
+    "notifications": {
+      "title": "Notificações",
+      "markAsRead": "Marcar como lida",
+      "markAllAsRead": "Marcar todas como lidas",
+      "noNotifications": "Nenhuma notificação nova"
+    }
+  },
   "Admin": {
     "dashboard": {
       "title": "Painel de Administração",

@@ -1,60 +1,66 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃     @pfsa/forum – Next.js Configuration (App Dir)     ┃
+ * ┃        @pfsa/forum – Locale Layout (i18n-Aware)     ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * This configuration sets up Next.js 15 for Portuguese Forum,
- * with Nx support, localization via `next-intl`, and MDX processing.
+ * Locale-specific layout providing internationalization context,
+ * theme support, and public layout provider.
  */
 
-import { withNx } from '@nx/next';
-import createNextIntlPlugin from 'next-intl/plugin';
-import createMDX from '@next/mdx';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+/* ─────────────────────────────────────────────────────────────
+ * 📦 Dependencies  
+ * ───────────────────────────────────────────────────────────── */
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { PublicLayoutProvider } from '@pfsa/ui';
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Plugin Configuration (next-intl)
+ * 🧾 Layout Props
  * ───────────────────────────────────────────────────────────── */
-const withNextIntl = createNextIntlPlugin('./src/app/i18n/request.ts');
+interface LocaleLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{
+    locale: string;
+  }>;
+}
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 MDX Configuration
+ * 🧠 Locale Layout Component
  * ───────────────────────────────────────────────────────────── */
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [
-      rehypeHighlight,
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'wrap',
-          properties: {
-            className: ['anchor'],
-          },
-        },
-      ],
-    ],
-  },
-});
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
+  const { locale } = await params;
+  
+  // Verify locale is supported
+  const supportedLocales = ['en', 'pt'];
+  if (!supportedLocales.includes(locale)) {
+    notFound();
+  }
+
+  // Get messages for the locale
+  const messages = await getMessages();
+
+  // Mock user data - replace with actual auth logic
+  const mockUser = null; // or get from session/auth
+
+  return (
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          <PublicLayoutProvider initialUser={mockUser}>
+            {children}
+          </PublicLayoutProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
+  );
+}
 
 /* ─────────────────────────────────────────────────────────────
- * 🔧 Base Next.js Configuration
+ * 🧾 Generate Static Params
  * ───────────────────────────────────────────────────────────── */
-const nextConfig = {
-  nx: {
-    svgr: false, // We use static SVG imports instead of SVGR
-  },
-  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'], // Enable MDX file processing
-  experimental: {
-    mdxRs: true, // Use Rust-based MDX compiler for better performance
-  },
-};
-
-/* ─────────────────────────────────────────────────────────────
- * 🧠 Export (Chain all plugins together)
- * ───────────────────────────────────────────────────────────── */
-export default withNx(withNextIntl(withMDX(nextConfig)));
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'pt' }];
+}

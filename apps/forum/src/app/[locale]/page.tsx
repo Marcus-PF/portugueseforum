@@ -10,11 +10,11 @@
  *  - More components can be added incrementally
  */
 
-
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
  * ───────────────────────────────────────────────────────────── */
 import { useTranslations } from 'next-intl';
+import { PublicLayout } from '@pfsa/ui';
 import { HeroSection } from '../../components/home/HeroSection';
 import { AboutSection } from '../../components/home/AboutSection';
 import { NewsAndEvents } from '../../components/home/NewsAndEvents';
@@ -31,16 +31,18 @@ export default function HomePage() {
   const t = useTranslations('Home');
 
   return (
-    <div className="flex flex-col">
-      <HeroSection />
-      <AboutSection />
-      <NewsAndEvents />
-      <CommunityImpact />
-      <LeadershipSection />
-      <CultureShowcase />
-      <TestimonialsSection />
-      <GetInvolved />
-    </div>
+    <PublicLayout showBreadcrumbs={false} maxWidth="full">
+      <div className="flex flex-col">
+        <HeroSection />
+        <AboutSection />
+        <NewsAndEvents />
+        <CommunityImpact />
+        <LeadershipSection />
+        <CultureShowcase />
+        <TestimonialsSection />
+        <GetInvolved />
+      </div>
+    </PublicLayout>
   );
 }
 

@@ -1,21 +1,16 @@
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           @pfsa/ui – Library Entry Point              ┃
+ * ┃    @pfsa/forum – Documentation Components Index      ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * Central access point for re-exporting UI building blocks.
+ * Centralized exports for all documentation-related components.
  *
- * 🔁 Re-exports:
- *  - `atoms/`  → Design primitives (buttons, dialogs, inputs, etc.)
- *  - `hooks/`  → UI-specific utility hooks (e.g., responsive)
- *
- * 🧵 Note:
- *  - Global styles are injected manually where needed.
- *    (e.g., `@pfsa/ui/global` → mapped in `tsconfig.base.json`)
+ * Exports:
+ *  - `DocsLayout` → Main documentation layout wrapper
+ *  - `MDXComponents` → MDX component overrides for styling
  */
 
 /* ─────────────────────────────────────────────────────────────
- * 📦 Module Exports
+ * 🧠 Re-exports
  * ───────────────────────────────────────────────────────────── */
-export * from './atoms';
-export * from './hooks';
-export * from './layouts'
+export { DocsLayout } from './DocsLayout';
+export { MDXComponents } from './MDXComponents';
