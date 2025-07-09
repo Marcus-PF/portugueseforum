@@ -41,6 +41,8 @@
 
   --destructive: oklch(0.6 0.25 27); /* same red */
 
+  --highlight: oklch(0.75 0.25 80);
+
   --border: oklch(0.88 0.02 95);
   --input: oklch(0.88 0.02 95);
   --ring: oklch(0.53 0.19 140); /* same as secondary */
@@ -87,6 +89,8 @@
   --accent-foreground: oklch(0.98 0.01 100);
 
   --destructive: oklch(0.65 0.22 25);
+
+  --highlight: oklch(0.75 0.25 80);
 
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);

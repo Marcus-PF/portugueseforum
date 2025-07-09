@@ -17,6 +17,10 @@
  * ───────────────────────────────────────────────────────────── */
 import { useTranslations } from 'next-intl';
 import { HeroSection } from '../../components/home/HeroSection';
+import { AboutSection } from '../../components/home/AboutSection';
+import { NewsAndEvents } from '../../components/home/NewsAndEvents';
+import { CommunityImpact } from '../../components/home/CommunityImpact';
+import { GetInvolved } from '../../components/home/GetInvolved';
 
 /* ─────────────────────────────────────────────────────────────
  * 🧾 Page Component
@@ -27,8 +31,10 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-16">
       <HeroSection />
-      {/* Future: <FeaturedNews /> */}
-      {/* Future: <NewsletterSignup /> */}
+      <AboutSection />
+      <NewsAndEvents />
+      <CommunityImpact />
+      <GetInvolved />
     </div>
   );
 }
