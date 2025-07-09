@@ -10,7 +10,6 @@
  *  - More components can be added incrementally
  */
 
-'use client';
 
 /* ─────────────────────────────────────────────────────────────
  * 📦 Dependencies
@@ -20,6 +19,9 @@ import { HeroSection } from '../../components/home/HeroSection';
 import { AboutSection } from '../../components/home/AboutSection';
 import { NewsAndEvents } from '../../components/home/NewsAndEvents';
 import { CommunityImpact } from '../../components/home/CommunityImpact';
+import { LeadershipSection } from '../../components/home/Leadership';
+import { CultureShowcase } from '../../components/home/CultureShowcase';
+import { TestimonialsSection } from '../../components/home/Testimonials';
 import { GetInvolved } from '../../components/home/GetInvolved';
 
 /* ─────────────────────────────────────────────────────────────
@@ -29,12 +31,28 @@ export default function HomePage() {
   const t = useTranslations('Home');
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col">
       <HeroSection />
       <AboutSection />
       <NewsAndEvents />
       <CommunityImpact />
+      <LeadershipSection />
+      <CultureShowcase />
+      <TestimonialsSection />
       <GetInvolved />
     </div>
   );
+}
+
+// Generate metadata for the home page
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  
+  return {
+    title: 'Home',
+    description: 'Welcome to the Portuguese Forum of South Africa - connecting Portuguese heritage with modern South African life.',
+    alternates: {
+      canonical: `/${locale}`,
+    },
+  };
 }

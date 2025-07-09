@@ -11,6 +11,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Button, Sheet, SheetContent, SheetTrigger } from '@pfsa/ui'
 import { useTheme } from 'next-themes'
 import { Menu, Moon, Sun, Users, Facebook, Instagram } from 'lucide-react'
@@ -18,12 +19,15 @@ import { Menu, Moon, Sun, Users, Facebook, Instagram } from 'lucide-react'
 export function Header() {
   const { locale } = useParams()
   const { theme, setTheme } = useTheme()
+  const t = useTranslations('Navigation')
 
   const navItems = [
-    { label: 'About', href: '/about' },
-    { label: 'Community', href: '/community' },
-    { label: 'News', href: '/news' },
-    { label: 'Contact', href: '/contact' },
+    { href: '', label: t('home') },
+    { href: '/about', label: t('about') },
+    { href: '/events', label: t('events') },
+    { href: '/news', label: t('news') },
+    { href: '/membership', label: t('membership') },
+    { href: '/contact', label: t('contact') },
   ]
 
   const joinUrl = 'https://web.facebook.com/groups/portugueseforumsa'

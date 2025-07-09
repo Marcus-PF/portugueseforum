@@ -8,6 +8,7 @@
  * 🔁 Centralized exports:
  *   - `article`         → Article schema/model
  *   - `community-post`  → Community post schema/model
+ *   - `newsletter`      → Newsletter schema/model
  *   - `page`            → Static page schema/model
  *   - `user`            → Auth user schema/model
  */
@@ -17,5 +18,6 @@
  * ───────────────────────────────────────────────────────────── */
 export * from './article';
 export * from './community-post';
+export * from './newsletter';
 export * from './page';
 export * from './user';

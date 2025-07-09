@@ -1,7 +1,69 @@
 {
+  "Navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "events": "Eventos",
+    "news": "Notícias",
+    "membership": "Associação",
+    "contact": "Contacto"
+  },
   "Home": {
     "title": "Bem-vindo ao Fórum Português",
-    "description": "Conectando a comunidade portuguesa na África do Sul."
+    "description": "Conectando a comunidade portuguesa na África do Sul.",
+    "hero": {
+      "badge": "Celebrando 24 Anos de Comunidade",
+      "title": "Fórum Português da África do Sul",
+      "subtitle": "Conectando o patrimônio português com a vida moderna sul-africana através de eventos, notícias e preservação cultural.",
+      "cta": {
+        "join": "Junte-se à Nossa Comunidade",
+        "events": "Explorar Eventos"
+      },
+      "stats": {
+        "members": "Membros da Comunidade",
+        "years": "Anos de Serviço",
+        "countries": "Países",
+        "events": "Eventos Realizados"
+      }
+    },
+    "about": {
+      "title": "Sobre Nós",
+      "subtitle": "Construindo pontes entre o patrimônio português e a vida sul-africana",
+      "description": "O Fórum Português da África do Sul tem servido a comunidade portuguesa há mais de 20 anos, promovendo conexões, preservando a cultura e apoiando nossos membros."
+    },
+    "news": {
+      "title": "Últimas Notícias e Eventos",
+      "subtitle": "Mantenha-se atualizado com os acontecimentos da comunidade e cultura portuguesa",
+      "viewAll": "Ver Tudo",
+      "readMore": "Ler Mais",
+      "featured": "Destaque"
+    },
+    "community": {
+      "title": "Impacto da Comunidade",
+      "subtitle": "Saiba como estamos fazendo a diferença na comunidade portuguesa",
+      "description": "Através de eventos, redes de apoio e preservação cultural, fortalecemos a comunidade portuguesa na África do Sul."
+    },
+    "getInvolved": {
+      "title": "Participe",
+      "subtitle": "Junte-se à nossa comunidade e faça parte da preservação do patrimônio português na África do Sul",
+      "becomeMember": "Tornar-se Membro"
+    },
+    "leadership": {
+      "title": "Nossa Liderança",
+      "subtitle": "Conheça os voluntários dedicados que guiam nossa comunidade rumo ao crescimento, unidade e preservação cultural",
+      "meetFullTeam": "Conheça a Equipe Completa"
+    },
+    "culture": {
+      "title": "Cultura Portuguesa",
+      "subtitle": "Explore as ricas tradições, artes e costumes que definem o patrimônio português",
+      "music": "Música e Dança",
+      "cuisine": "Culinária",
+      "arts": "Artes e Literatura",
+      "explore": "Explorar Cultura Portuguesa"
+    },
+    "testimonials": {
+      "title": "Vozes da Comunidade",
+      "subtitle": "Ouça os membros da nossa comunidade sobre suas experiências com o Fórum Português"
+    }
   },
   "About": {
     "title": "Sobre Nós",
@@ -43,7 +105,13 @@
       "save": "Salvar",
       "update": "Atualizar",
       "noArticles": "Nenhum artigo encontrado.",
-      "unauthorized": "Não autorizado. Por favor, faça login."
+      "unauthorized": "Não autorizado. Por favor, faça login.",
+      "createNew": "Criar Novo Artigo",
+      "editArticle": "Editar Artigo: {title}",
+      "published": "Publicado",
+      "draft": "Rascunho",
+      "saveChanges": "Salvar Alterações",
+      "content": "Conteúdo"
     }
   },
   "Header": {
@@ -52,7 +120,9 @@
     "news": "Notícias",
     "community": "Comunidade",
     "contact": "Contacto",
-    "admin": "Admin"
+    "admin": "Admin",
+    "events": "Eventos",
+    "membership": "Associação"
   },
   "Footer": {
     "copyright": "© {year} Fórum Português. Todos os direitos reservados.",
@@ -80,15 +150,28 @@
     "invalidToken": "Token de redefinição inválido ou ausente",
     "passwordResetSuccess": "Senha redefinida com sucesso"
   },
-    "admin": {
-    "articles": {
-      "title": "Gerenciar Artigos",
-      "create": "Criar Novo Artigo",
-      "edit": "Editar Artigo: {title}",
-      "published": "Publicado",
-      "draft": "Rascunho",
-      "save": "Salvar Alterações",
-      "content": "Conteúdo"
-    }
+  "common": {
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "retry": "Tentar Novamente",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "view": "Ver",
+    "close": "Fechar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "dateTime": "Data e Hora",
+    "location": "Localização",
+    "category": "Categoria",
+    "tags": "Tags",
+    "author": "Autor",
+    "readTime": "tempo de leitura",
+    "joinCommunity": "Juntar-se à Comunidade"
   }
 }

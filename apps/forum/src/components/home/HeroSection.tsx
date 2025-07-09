@@ -2,22 +2,29 @@
 
 /**
  * ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
- * ┃           Hero Section – Portuguese Forum (PFSA)      ┃
+ * ┃       Hero Section – Portuguese Forum (Enhanced)      ┃
  * ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
- * • Background image shifted down so the flag is visible
- * • Text block centered on mobile, right-aligned on desktop
- * • Responsive dark gradient overlay for text readability
- * • Bold headline + CTAs using @pfsa/ui atoms
+ * 🇵🇹 Image banner, mission text, CTAs, and live stats
+ * - Text block is right-aligned (desktop), centered (mobile)
+ * - Full dark overlay for readability
+ * - Stats card floats at bottom center with blur + icons
  */
 
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { Button } from '@pfsa/ui'
-import { ChevronRight } from 'lucide-react'
+import { Button, Card, CardContent } from '@pfsa/ui'
+import { ChevronRight, Users, Calendar, Globe, Award } from 'lucide-react'
 
 export function HeroSection() {
   const { locale } = useParams()
+
+  const stats = [
+    { icon: Users, value: '15,000+', label: 'Community Members' },
+    { icon: Calendar, value: '24', label: 'Years of Service' },
+    { icon: Globe, value: '3', label: 'Countries' },
+    { icon: Award, value: '100+', label: 'Events Hosted' }
+  ]
 
   return (
     <section className="relative h-[80vh] min-h-[560px] w-full overflow-hidden">
@@ -31,7 +38,7 @@ export function HeroSection() {
         style={{ objectPosition: 'center 20%' }}
       />
 
-      {/* 🌘 Responsive gradient overlay */}
+      {/* 🌘 Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/10 mix-blend-multiply md:bg-gradient-to-l" />
 
       {/* ✍️ Hero Content */}
@@ -70,6 +77,23 @@ export function HeroSection() {
             </Button>
           </div>
         </div>
+      </div>
+
+      {/* 📊 Community Stats Overlay */}
+      <div className="absolute bottom-8 left-1/2 z-10 w-full max-w-4xl px-4 -translate-x-1/2">
+        <Card className="bg-white/10 backdrop-blur-md border-white/20">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              {stats.map(({ icon: Icon, value, label }) => (
+                <div key={label}>
+                  <Icon className="h-6 w-6 text-primary mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-white">{value}</div>
+                  <div className="text-sm text-white/80">{label}</div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )

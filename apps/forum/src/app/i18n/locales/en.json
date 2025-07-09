@@ -1,7 +1,69 @@
 {
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "events": "Events",
+    "news": "News",
+    "membership": "Membership",
+    "contact": "Contact"
+  },
   "Home": {
     "title": "Welcome to The Portuguese Forum",
-    "description": "Connecting the South African Portuguese community."
+    "description": "Connecting the South African Portuguese community.",
+    "hero": {
+      "badge": "Celebrating 24 Years of Community",
+      "title": "Portuguese Forum of South Africa",
+      "subtitle": "Connecting Portuguese heritage with modern South African life through events, news, and cultural preservation.",
+      "cta": {
+        "join": "Join Our Community",
+        "events": "Explore Events"
+      },
+      "stats": {
+        "members": "Community Members",
+        "years": "Years of Service",
+        "countries": "Countries",
+        "events": "Events Hosted"
+      }
+    },
+    "about": {
+      "title": "About Us",
+      "subtitle": "Building bridges between Portuguese heritage and South African life",
+      "description": "The Portuguese Forum of South Africa has been serving the Portuguese community for over 20 years, fostering connections, preserving culture, and supporting our members."
+    },
+    "news": {
+      "title": "Latest News & Events",
+      "subtitle": "Stay updated with community happenings and Portuguese culture",
+      "viewAll": "View All",
+      "readMore": "Read More",
+      "featured": "Featured"
+    },
+    "community": {
+      "title": "Community Impact",
+      "subtitle": "Learn about how we're making a difference in the Portuguese community",
+      "description": "Through events, support networks, and cultural preservation, we strengthen the Portuguese community in South Africa."
+    },
+    "getInvolved": {
+      "title": "Get Involved",
+      "subtitle": "Join our community and be part of preserving Portuguese heritage in South Africa",
+      "becomeMember": "Become a Member"
+    },
+    "leadership": {
+      "title": "Our Leadership",
+      "subtitle": "Meet the dedicated volunteers who guide our community toward growth, unity, and cultural preservation",
+      "meetFullTeam": "Meet Full Team"
+    },
+    "culture": {
+      "title": "Portuguese Culture",
+      "subtitle": "Explore the rich traditions, arts, and customs that define Portuguese heritage",
+      "music": "Music & Dance",
+      "cuisine": "Cuisine",
+      "arts": "Arts & Literature",
+      "explore": "Explore Portuguese Culture"
+    },
+    "testimonials": {
+      "title": "Community Voices",
+      "subtitle": "Hear from our community members about their experiences with the Portuguese Forum"
+    }
   },
   "About": {
     "title": "About Us",
@@ -43,7 +105,13 @@
       "save": "Save",
       "update": "Update",
       "noArticles": "No articles found.",
-      "unauthorized": "Unauthorized. Please log in."
+      "unauthorized": "Unauthorized. Please log in.",
+      "createNew": "Create New Article",
+      "editArticle": "Edit Article: {title}",
+      "published": "Published",
+      "draft": "Draft",
+      "saveChanges": "Save Changes",
+      "content": "Content"
     }
   },
   "Header": {
@@ -52,7 +120,9 @@
     "news": "News",
     "community": "Community",
     "contact": "Contact",
-    "admin": "Admin"
+    "admin": "Admin",
+    "events": "Events",
+    "membership": "Membership"
   },
   "Footer": {
     "copyright": "© {year} The Portuguese Forum. All rights reserved.",
@@ -63,7 +133,7 @@
     "en": "English",
     "pt": "Portuguese"
   },
-    "auth": {
+  "auth": {
     "signIn": "Sign In",
     "register": "Register",
     "email": "Email",
@@ -80,15 +150,28 @@
     "invalidToken": "Invalid or missing reset token",
     "passwordResetSuccess": "Password reset successfully"
   },
-    "admin": {
-    "articles": {
-      "title": "Manage Articles",
-      "create": "Create New Article",
-      "edit": "Edit Article: {title}",
-      "published": "Published",
-      "draft": "Draft",
-      "save": "Save Changes",
-      "content": "Content"
-    }
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "dateTime": "Date & Time",
+    "location": "Location",
+    "category": "Category",
+    "tags": "Tags",
+    "author": "Author",
+    "readTime": "read time",
+    "joinCommunity": "Join Community"
   }
 }
